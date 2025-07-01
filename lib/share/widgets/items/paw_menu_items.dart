@@ -1,23 +1,34 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
 import 'package:paw_fund_shelter_owner/share/utils/paw_utils.dart';
+import 'package:paw_fund_shelter_owner/share/widgets/button/paw_button.dart';
+import 'package:paw_fund_shelter_owner/share/widgets/icon/paw_icon.dart';
+import 'package:paw_fund_shelter_owner/share/widgets/text/paw_text.dart';
 
 class PMenuItem extends StatelessWidget {
   const PMenuItem({
     super.key,
-    required this.child,
+
     this.paddingLeft,
     this.paddingRight,
     this.paddingBottom,
     this.paddingTop,
     this.paddingAll,
+
     this.height,
     this.width,
-    this.backgroundColor
+    this.backgroundColor,
+
+    required this.onExit,
+    required this.onEnter,
+
+    required this.onTap,
+    required this.title,
+
+    this.textSize,
+    this.textColor
   });
-
-  final Widget child;
-
   final double? paddingLeft;
   final double? paddingRight;
   final double? paddingTop;
@@ -29,27 +40,231 @@ class PMenuItem extends StatelessWidget {
 
   final Color? backgroundColor;
 
+  final ValueChanged<PointerEnterEvent> onEnter;
+  final ValueChanged<PointerExitEvent> onExit;
+
+  final VoidCallback onTap;
+  final String title;
+
+  final double? textSize;
+  final Color? textColor;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: PObjectUtils.isNotNull(paddingAll) ? EdgeInsets.all(paddingAll!)
-          : EdgeInsets.only(
-          left: PObjectUtils.requiredNonNullOrElse(paddingLeft, 20),
-          right: PObjectUtils.requiredNonNullOrElse(paddingRight, 20),
-          top: PObjectUtils.requiredNonNullOrElse(paddingTop, 20) ,
-          bottom: PObjectUtils.requiredNonNullOrElse(paddingBottom, 20)
-      ),
-      child: Container(
-        height: PObjectUtils.requiredNonNullOrElse(height, 300),
-        width: PObjectUtils.requiredNonNullOrElse(width, 150),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-            color: PObjectUtils.requiredNonNullOrElse(backgroundColor, PConstant.transparent)
+    return MouseRegion(
+      onEnter: onEnter,
+      onExit: onExit,
+      child: Padding(
+        padding: PObjectUtils.isNotNull(paddingAll) ? EdgeInsets.all(paddingAll!)
+            : EdgeInsets.only(
+            left: PObjectUtils.requiredNonNullOrElse(paddingLeft, 20),
+            right: PObjectUtils.requiredNonNullOrElse(paddingRight, 20),
+            top: PObjectUtils.requiredNonNullOrElse(paddingTop, 20) ,
+            bottom: PObjectUtils.requiredNonNullOrElse(paddingBottom, 20)
         ),
-        child: Center(
-          child: child,
+        child: Container(
+          height: PObjectUtils.requiredNonNullOrElse(height, 300),
+          width: PObjectUtils.requiredNonNullOrElse(width, 150),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              color: PObjectUtils.requiredNonNullOrElse(backgroundColor, PConstant.transparent)
+          ),
+          child: Center(
+            child: InkWell(
+              onTap: onTap,
+              child: PText(
+                content: title,
+                wordSpacing: 2.0,
+                fontWeight: FontWeight.bold,
+                fontSize: PObjectUtils.requiredNonNullOrElse(textSize, 15),
+                textColor: PObjectUtils.requiredNonNullOrElse(textColor, PConstant.black),
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
 }
+
+class PSubMenuItem extends StatefulWidget {
+  const PSubMenuItem({
+    super.key,
+
+    required this.textSize,
+    required this.textColor,
+
+    this.textSizeHover,
+    this.textColorHover,
+
+    required this.iconSize,
+    required this.iconColor,
+
+    this.iconSizeHover,
+    this.iconColorHover,
+
+    required this.title,
+
+    required this.backgroundColor,
+    this.backgroundColorHover
+  });
+
+  final double iconSize;
+  final Color iconColor;
+
+  final double? iconSizeHover;
+  final Color? iconColorHover;
+
+  final double textSize;
+  final Color textColor;
+
+  final double? textSizeHover;
+  final Color? textColorHover;
+
+  final String title;
+
+  final Color backgroundColor;
+  final Color? backgroundColorHover;
+
+  @override
+  State<PSubMenuItem> createState() => _PSubMenuItemState();
+}
+
+class _PSubMenuItemState extends State<PSubMenuItem> {
+  OverlayEntry? _overlayEntry;
+  final LayerLink _layerLink = LayerLink();
+  late bool _isHover = false;
+
+  @override
+  void dispose() {
+    _hideMenu();
+    super.dispose();
+  }
+
+  void _showMenu() {
+    if (_overlayEntry != null) return;
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        width: 300,
+        height: 90,
+        child: CompositedTransformFollower(
+            link: _layerLink,
+            offset: Offset(-15, 75),
+            showWhenUnlinked: false,
+            child: MouseRegion(
+              onExit: (_) {
+                setState(() {
+                  _isHover = false;
+                });
+                _hideMenu();
+              },
+              child: Material(
+                elevation: 4,
+                color: PConstant.orangeAccent,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      PHoverButton(
+                        onPress: () {},
+                        width: 200,
+                        height: 30,
+                        backgroundColor: PConstant.white,
+                        fontWeight: FontWeight.bold,
+                        textSize: 13,
+                        textSizeHover: 17,
+                        textColor: PConstant.orangeAccent,
+                        textColorHover: PConstant.purple,
+                        title: Text("Đăng ký"),
+                      ),
+                      PConstant.hDistance10,
+                      PHoverButton(
+                        onPress: () {},
+                        width: 200,
+                        height: 30,
+                        backgroundColor: PConstant.white,
+                        fontWeight: FontWeight.bold,
+                        textSize: 13,
+                        textSizeHover: 17,
+                        textColor: PConstant.orangeAccent,
+                        textColorHover: PConstant.green,
+                        title: Text("Đăng nhập"),
+
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+        ),
+    ),);
+
+    Overlay.of(context).insert(_overlayEntry!);
+  }
+
+  void _hideMenu() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: _isHover == true
+            ? PObjectUtils.requiredNonNullOrElse(widget.backgroundColorHover, widget.backgroundColor)
+            : widget.backgroundColor,
+        border: Border.symmetric(
+            vertical: BorderSide(
+                style: BorderStyle.solid,
+                color: PConstant.white
+            )
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15.0),
+        child: MouseRegion(
+          onEnter: (_) {
+            setState(() {
+              _isHover = true;
+            });
+            _showMenu();
+          },
+
+          child: CompositedTransformTarget(
+            link: _layerLink,
+            child: Center(
+              child: Row(
+                children: [
+                  PAccountAvatarIcon(
+                    size: _isHover == true
+                        ? PObjectUtils.requiredNonNullOrElse(widget.iconSizeHover, widget.iconSize)
+                        : widget.iconSize,
+                    color: _isHover == true
+                        ? PObjectUtils.requiredNonNullOrElse(widget.iconColorHover, widget.iconColor)
+                        : widget.iconColor,
+                  ),
+                  PConstant.vDistance5,
+                  PText(
+                    content: widget.title,
+                    textColor: _isHover == true
+                        ? PObjectUtils.requiredNonNullOrElse(widget.textColorHover, widget.textColor)
+                        : widget.textColor,
+                    fontWeight: FontWeight.bold,
+                    wordSpacing: 2.0,
+                    fontSize: _isHover == true
+                        ? PObjectUtils.requiredNonNullOrElse(widget.textSizeHover, widget.textSize)
+                        : widget.textSize,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+

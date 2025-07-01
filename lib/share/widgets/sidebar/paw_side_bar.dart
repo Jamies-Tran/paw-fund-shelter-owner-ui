@@ -17,65 +17,114 @@ class PSideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MenuItemController menuItemController = Get.find();
-    return Column(
-      children: [
-        PConstant.hDistance10,
+    return Obx(() => Container(
+      color: PConstant.orangeAccent,
+      child: Column(
+        children: [
+          PImage(
+            url: PConstant.pawFundLogo,
+            imageType: EImageType.network,
+            width: 350,
+            height: 100,
+            boxFit: BoxFit.fitWidth,
+          ),
 
-        PImage(
-          url: PConstant.pawFundLogo,
-          imageType: EImageType.network,
-          width: 200,
-          height: 50,
-          boxFit: BoxFit.fitWidth,
-        ),
+          PConstant.hDistance50,
 
-        PConstant.hDistance50,
+          PMenuItem(
+            onTap: () {
+              Get.toNamed(PRoute.homeScreen);
+            },
+            onEnter: (_) => menuItemController
+                .setCurrentHoveringRoute(PRoute.homeScreen),
+            onExit: (_) => menuItemController
+                .setCurrentHoveringRoute(""),
+            title: "Giới thiệu",
+            paddingAll: 0.0,
+            height: 50,
+            width: 300,
+            backgroundColor: menuItemController.getIsMenuItemHovering(PRoute.homeScreen)
+                ? PConstant.white
+                : menuItemController.getIsMenuItemSelected(PRoute.homeScreen)
+                ? PConstant.white
+                : PConstant.transparent,
+            textSize: menuItemController.getIsMenuItemHovering(PRoute.homeScreen)
+                ? 17
+                : menuItemController.getIsMenuItemSelected(PRoute.homeScreen)
+                ? 15
+                : 13,
+            textColor: menuItemController.getIsMenuItemHovering(PRoute.homeScreen)
+                ? PConstant.orangeAccent
+                : menuItemController.getIsMenuItemSelected(PRoute.homeScreen)
+                ? PConstant.orangeAccent
+                : PConstant.white,),
 
-        PSideBarItem(
-          onTap: () {
-            Get.toNamed(PRoute.homeScreen);
-          },
-          onHover: (value) {},
-          title: "Giới thiệu",
-          backgroundColor: menuItemController.getIsMenuItemSelected(PRoute.homeScreen) ? PConstant.orangeAccent : PConstant.transparent,
-          fontSize: menuItemController.getIsMenuItemSelected(PRoute.homeScreen) ? 17 : 15,
-          textColor: menuItemController.getIsMenuItemSelected(PRoute.homeScreen) ? PConstant.white : PConstant.black,
+          PConstant.hDistance10,
 
-        ),
+          PMenuItem(
+            onTap: () {
+              Get.toNamed(PRoute.shelterIntroScreen);
+            },
+            onEnter: (_) => menuItemController
+                .setCurrentHoveringRoute(PRoute.shelterIntroScreen),
+            onExit: (_) => menuItemController
+                .setCurrentHoveringRoute(""),
+            title: "Trung tâm cứu trợ",
+            paddingAll: 0.0,
+            height: 50,
+            width: 300,
+            backgroundColor: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroScreen)
+                ? PConstant.white
+                : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen)
+                ? PConstant.white
+                : PConstant.transparent,
+            textSize: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroScreen)
+                ? 17
+                : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen)
+                ? 15
+                : 13,
+            textColor: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroScreen)
+                ? PConstant.orangeAccent
+                : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen)
+                ? PConstant.orangeAccent
+                : PConstant.white,),
 
-        PConstant.hDistance10,
+          PConstant.hDistance10,
 
-        PSideBarItem(
-          onTap: () {
-            Get.toNamed(PRoute.shelterIntroScreen);
-          },
-          onHover: (value) {},
-          title: "Trung tâm cứu trợ",
-          backgroundColor: menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen) ? PConstant.orangeAccent : PConstant.transparent,
-          fontSize: menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen) ? 17 : 15,
-          textColor: menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen) ? PConstant.white : PConstant.black,
+          PMenuItem(
+            onTap: () {
+              Get.toNamed(PRoute.contractScreen);
+            },
+            onEnter: (_) => menuItemController
+                .setCurrentHoveringRoute(PRoute.contractScreen),
+            onExit: (_) => menuItemController
+                .setCurrentHoveringRoute(""),
+            title: "Liên hệ",
+            paddingAll: 0.0,
+            height: 50,
+            width: 300,
+            backgroundColor: menuItemController.getIsMenuItemHovering(PRoute.contractScreen)
+                ? PConstant.white
+                : menuItemController.getIsMenuItemSelected(PRoute.contractScreen)
+                ? PConstant.white
+                : PConstant.transparent,
+            textSize: menuItemController.getIsMenuItemHovering(PRoute.contractScreen)
+                ? 17
+                : menuItemController.getIsMenuItemSelected(PRoute.contractScreen)
+                ? 15
+                : 13,
+            textColor: menuItemController.getIsMenuItemHovering(PRoute.contractScreen)
+                ? PConstant.orangeAccent
+                : menuItemController.getIsMenuItemSelected(PRoute.contractScreen)
+                ? PConstant.orangeAccent
+                : PConstant.white,),
 
-        ),
+          PConstant.hDistance250,
 
-        PConstant.hDistance10,
-
-        PSideBarItem(
-          onTap: () {
-            Get.toNamed(PRoute.contractScreen);
-          },
-          onHover: (value) {},
-          title: "Liên hệ",
-          backgroundColor: menuItemController.getIsMenuItemSelected(PRoute.contractScreen) ? PConstant.orangeAccent : PConstant.transparent,
-          fontSize: menuItemController.getIsMenuItemSelected(PRoute.contractScreen) ? 17 : 15,
-          textColor: menuItemController.getIsMenuItemSelected(PRoute.contractScreen) ? PConstant.white : PConstant.black,
-
-        ),
-
-        PConstant.hDistance250,
-
-        PSideBarFooterV1()
-      ],
-    );
+          PSideBarFooterV1()
+        ],
+      ),
+    ),);
   }
 }
 
@@ -86,32 +135,32 @@ class PSideBarFooterV1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        PButton(
-          onPress: () => {},
+        PHoverButton(
+          onPress: () {},
           width: 250,
-          title: PText(
-            content: "Đăng ký",
-            textColor: PConstant.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 13,
-            wordSpacing: 1.5,
-          ),
-          backgroundColor: PConstant.purple,
+          height: 50,
+          backgroundColor: PConstant.white,
+          fontWeight: FontWeight.bold,
+          textSize: 13,
+          textSizeHover: 17,
+          textColor: PConstant.orangeAccent,
+          textColorHover: PConstant.purple,
+          title: Text("Đăng ký"),
         ),
 
         PConstant.hDistance10,
 
-        PButton(
-          onPress: () => {},
+        PHoverButton(
+          onPress: () {},
           width: 250,
-          title: PText(
-            content: "Đăng nhập",
-            textColor: PConstant.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 13,
-            wordSpacing: 1.5,
-          ),
-          backgroundColor: PConstant.orangeAccent,
+          height: 50,
+          backgroundColor: PConstant.white,
+          fontWeight: FontWeight.bold,
+          textSize: 13,
+          textSizeHover: 17,
+          textColor: PConstant.orangeAccent,
+          textColorHover: PConstant.green,
+          title: Text("Đăng nhập"),
         ),
       ],
     );

@@ -64,21 +64,12 @@ class PSideBarItem extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         onHover: onHover,
-        child: PMenuItem(
-          paddingLeft: PObjectUtils.requiredNonNullOrElse(menuPaddingLeft, 50),
-          paddingRight: PObjectUtils.requiredNonNullOrElse(menuPaddingRight, 50),
-          paddingBottom: PObjectUtils.requiredNonNullOrElse(menuPaddingBottom, 5),
-          paddingTop: PObjectUtils.requiredNonNullOrElse(menuPaddingTop, 5),
-          width: PObjectUtils.requiredNonNullOrElse(width, 300),
-          height: PObjectUtils.requiredNonNullOrElse(height, 50),
-          child: PText(
-            content: title,
-            wordSpacing: PObjectUtils.requiredNonNullOrElse(wordSpacing, 2.0),
-            fontWeight: PObjectUtils.requiredNonNullOrElse(fontWeight, FontWeight.bold),
-            fontSize: PObjectUtils.requiredNonNullOrElse(fontSize, 15),
-            textColor: PObjectUtils.requiredNonNullOrElse(textColor, PConstant.black),
-
-          ),
+        child: PText(
+          content: title,
+          wordSpacing: PObjectUtils.requiredNonNullOrElse(wordSpacing, 2.0),
+          fontWeight: PObjectUtils.requiredNonNullOrElse(fontWeight, FontWeight.bold),
+          fontSize: PObjectUtils.requiredNonNullOrElse(fontSize, 15),
+          textColor: PObjectUtils.requiredNonNullOrElse(textColor, PConstant.black),
         ),
       ),
     );
