@@ -1,6 +1,6 @@
 
 import 'package:get/get.dart';
-import 'package:paw_fund_shelter_owner/share/utils/paw_utils.dart';
+import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 
 class MenuItemController extends GetxController {
   final Rx<String> _currentHoveringRoute = "".obs;

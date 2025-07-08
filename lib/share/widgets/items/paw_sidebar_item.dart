@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
-import 'package:paw_fund_shelter_owner/share/utils/paw_utils.dart';
-import 'package:paw_fund_shelter_owner/share/widgets/items/paw_menu_items.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/text/paw_text.dart';
 
 class PSideBarItem extends StatelessWidget {

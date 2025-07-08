@@ -35,6 +35,7 @@ class PConstant {
   static const Color white = Colors.white;
   static const Color purple = Colors.purple;
   static const Color green = Colors.green;
+  static const Color red = Colors.red;
 
   // image network path
   static const pawFundLogo = "gs://realmen-2023.appspot.com/Logo_chua_xoa_nen_2.png";
