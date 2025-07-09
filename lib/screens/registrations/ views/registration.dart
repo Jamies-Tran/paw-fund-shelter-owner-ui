@@ -5,6 +5,7 @@ import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/enums/paw_enums.dart';
 import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
 import 'package:paw_fund_shelter_owner/share/responsive_design/template/paw_template.dart';
+import 'package:paw_fund_shelter_owner/share/widgets/button/paw_button.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/icon/paw_icon.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/text/paw_text.dart';
 
@@ -60,10 +61,12 @@ class DesktopView extends StatelessWidget {
                           ),
                           enableBorderColor: Color(Colors.black.toARGB32()),
                           focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
+                          focusErrorBorderColor: Color(Colors.red.shade100.toARGB32()),
                           enableBorderRadius: 10,
                           onTap: () => controller.setIsFirstNameHover(true),
                           onTapOutside: (_) => controller
                               .setIsFirstNameHover(false),
+                          onChanged: (value) => controller.setFirstName(value),
 
                         ),
 
@@ -84,6 +87,7 @@ class DesktopView extends StatelessWidget {
                           onTap: () => controller.setIsLastNameHover(true),
                           onTapOutside: (_) => controller
                               .setIsLastNameHover(false),
+                          onChanged: (value) => controller.setLastName(value),
                         )
                       ],
                     ),
@@ -117,6 +121,38 @@ class DesktopView extends StatelessWidget {
                       },
                       onTap: () => controller.setIsEmailHover(true),
                       onTapOutside: (_) => controller.setIsEmailHover(false),
+                      onChanged: (value) => controller.setEmail(value),
+                    ),
+
+                    PConstant.hDistance10,
+
+                    PTextFormField(
+                      width: 410,
+                      labelText: "Số điện thoại",
+                      hintText: "Nhập số điện thoại của bạn",
+                      textInputType: TextInputType.number,
+                      suffixIcon: Icon(
+                        Icons.phone,
+                        color: controller.getIsPhoneHover()
+                            ? Colors.orangeAccent
+                            : Colors.black,
+                      ),
+                      enableBorderColor: Color(Colors.black.toARGB32()),
+                      focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
+                      enableBorderRadius: 10,
+                      onTap: () => controller.setIsPhoneHover(true),
+                      onTapOutside: (_) => controller
+                          .setIsPhoneHover(false),
+                      onChanged: (value) => controller.setPhone(value),
+                    ),
+
+                    PConstant.hDistance15,
+
+                    PButton(
+                      width: 250,
+                      title: Text("Đăng ký"),
+                      backgroundColor: Color(Colors.green.toARGB32()),
+                      onPress: () => controller.register(),
                     )
                   ],
                 ),

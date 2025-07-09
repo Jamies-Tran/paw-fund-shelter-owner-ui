@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+
 import 'package:paw_fund_shelter_owner/screens/registrations/api/data/registration_data.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
 import 'package:paw_fund_shelter_owner/share/constans/handle_response/handle_response.dart';
@@ -26,7 +27,7 @@ class RegistrationApiImpl extends IRegistrationApi {
         if(response.statusCode == 200) {
           HandleResponse.onSuccess(response.statusCode.toString());
         }
-        return handler.next(response);
+        return handler.resolve(response);
       },
       onError: (error, handler) {
         HandleResponse.onError(error.message);
@@ -39,9 +40,12 @@ class RegistrationApiImpl extends IRegistrationApi {
   Future register(Account account) async {
     try {
        dio = Dio();
-       await dio.post(PAW_REGISTRATION, data: account.toJson());
+       Response<dynamic> response = await dio.post(PAW_REGISTRATION, data: account.toJson());
     } on TimeoutException catch (e) {
       HandleResponse.onError(e.message);
+    } on DioException catch (e) {
+      print(e.response?.data);
+      HandleResponse.onError(e.response?.statusCode.toString());
     } on Exception catch (e) {
       HandleResponse.onError(null);
     }

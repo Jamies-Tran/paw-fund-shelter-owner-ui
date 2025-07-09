@@ -62,9 +62,13 @@ class PTextFormField extends StatelessWidget {
     this.wordSpacing,
     this.fontStyle,
     this.enableBorderColor,
+    this.errorBorderColor,
     this.focusBorderColor,
+    this.focusErrorBorderColor,
     this.enableBorderStyle,
+    this.errorBorderStyle,
     this.focusBorderStyle,
+    this.focusErrorBorderStyle,
     this.enableBorderRadius,
     this.focusBorderRadius,
     this.width,
@@ -86,9 +90,13 @@ class PTextFormField extends StatelessWidget {
   final double? wordSpacing;
   final FontStyle? fontStyle;
   final Color? enableBorderColor;
+  final Color? errorBorderColor;
   final Color? focusBorderColor;
+  final Color? focusErrorBorderColor;
   final BorderStyle? enableBorderStyle;
+  final BorderStyle? errorBorderStyle;
   final BorderStyle? focusBorderStyle;
+  final BorderStyle? focusErrorBorderStyle;
   final double? enableBorderRadius;
   final double? focusBorderRadius;
   final double? width;
@@ -138,7 +146,27 @@ class PTextFormField extends StatelessWidget {
               borderSide: BorderSide(
                   color: PObjectUtils.requiredNonNullOrElse(
                       focusBorderColor, Color(PConstant.black.toARGB32())),
-                  style: PObjectUtils.requiredNonNullOrElse(enableBorderStyle,
+                  style: PObjectUtils.requiredNonNullOrElse(focusBorderStyle,
+                      BorderStyle.solid)
+              ),
+              borderRadius: BorderRadius.circular(PObjectUtils
+                  .requiredNonNullOrElse(focusBorderRadius, 1.0))
+          ),
+          errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: PObjectUtils.requiredNonNullOrElse(
+                      errorBorderColor, Color(Colors.red.toARGB32())),
+                  style: PObjectUtils.requiredNonNullOrElse(errorBorderStyle,
+                      BorderStyle.solid)
+              ),
+               borderRadius: BorderRadius.circular(PObjectUtils
+                  .requiredNonNullOrElse(focusBorderRadius, 1.0))
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: PObjectUtils.requiredNonNullOrElse(
+                      focusErrorBorderColor, Color(PConstant.red.toARGB32())),
+                  style: PObjectUtils.requiredNonNullOrElse(focusErrorBorderStyle,
                       BorderStyle.solid)
               ),
               borderRadius: BorderRadius.circular(PObjectUtils

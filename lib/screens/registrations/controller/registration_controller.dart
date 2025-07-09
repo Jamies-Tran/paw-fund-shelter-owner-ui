@@ -14,6 +14,7 @@ class RegistrationController {
   final Rx<bool> _isFirstNameHover = false.obs;
   final Rx<bool> _isLastNameHover = false.obs;
   final Rx<bool> _isEmailHover = false.obs;
+  final Rx<bool> _isPhoneHover = false.obs;
 
   final IRegistrationApi _registrationApi = Get.find();
 
@@ -40,6 +41,7 @@ class RegistrationController {
   void setIsFirstNameHover(bool isFirstNameHover) {
     _isLastNameHover.value = false;
     _isEmailHover.value = false;
+    _isPhoneHover.value = false;
     _isFirstNameHover.value = isFirstNameHover;
   }
 
@@ -47,13 +49,22 @@ class RegistrationController {
   void setIsLastNameHover(bool isLastNameHover) {
     _isFirstNameHover.value = false;
     _isEmailHover.value = false;
+    _isPhoneHover.value = false;
     _isLastNameHover.value = isLastNameHover;
   }
 
   void setIsEmailHover(bool isEmailHover) {
     _isFirstNameHover.value = false;
     _isLastNameHover.value = false;
+    _isPhoneHover.value = false;
     _isEmailHover.value = isEmailHover;
+  }
+
+  void setIsPhoneHover(bool isPhoneHover) {
+    _isFirstNameHover.value = false;
+    _isLastNameHover.value = false;
+    _isEmailHover.value = false;
+    _isPhoneHover.value = isPhoneHover;
   }
 
   bool getIsFirstNameHover() {
@@ -68,6 +79,10 @@ class RegistrationController {
     return _isEmailHover.value;
   }
 
+   bool getIsPhoneHover() {
+    return _isPhoneHover.value;
+   }
+
   Future<void> register() async {
     try {
       _isPending.value = true;
@@ -76,7 +91,7 @@ class RegistrationController {
           lastName: _lastName.value,
           email: _email.value,
           phone: _phone.value,
-          password: _password.value
+          password: "test"
       );
 
       await _registrationApi.register(account);
