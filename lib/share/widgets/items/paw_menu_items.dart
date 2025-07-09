@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
+import 'package:paw_fund_shelter_owner/share/constans/route/routes.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/button/paw_button.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/icon/paw_icon.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/text/paw_text.dart';
@@ -167,7 +169,9 @@ class _PSubMenuItemState extends State<PSubMenuItem> {
                   child: Column(
                     children: [
                       PHoverButton(
-                        onPress: () {},
+                        onPress: () {
+                          Get.toNamed(PRoute.registrationScreen);
+                        },
                         width: 200,
                         height: 30,
                         backgroundColor: PConstant.white,

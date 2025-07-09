@@ -28,4 +28,12 @@ class PStringUtils {
   static bool isNotEmpty(String? input) {
     return input != null && input != "";
   }
+
+  static bool isMatch(String? input, RegExp regex) {
+    if (isEmpty(input)) {
+      return false;
+    }
+
+    return regex.hasMatch(input!);
+  }
 }

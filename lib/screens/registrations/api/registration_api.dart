@@ -13,6 +13,7 @@ class RegistrationApiImpl extends IRegistrationApi {
   late Dio dio;
 
   RegistrationApiImpl() {
+    dio = Dio();
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
         options.headers["Content-Type"] = "application/json";
@@ -37,6 +38,7 @@ class RegistrationApiImpl extends IRegistrationApi {
   @override
   Future register(Account account) async {
     try {
+       dio = Dio();
        await dio.post(PAW_REGISTRATION, data: account.toJson());
     } on TimeoutException catch (e) {
       HandleResponse.onError(e.message);
