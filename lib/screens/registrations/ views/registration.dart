@@ -42,348 +42,355 @@ class _DesktopViewState extends State<DesktopView> {
   Widget build(BuildContext context) {
 
     return Obx(() => SingleChildScrollView(
-      child: Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 31.5,
-              horizontal: 250
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 31.5,
+          horizontal: 250
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 350,
+              height: 600,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("sua.jpg"),
+                    fit: BoxFit.fitHeight,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(Colors.black.toARGB32()),
+                      blurStyle: BlurStyle.solid,
+                      blurRadius: 5.0
+                    )
+                  ]
+              ),
             ),
-            child: Row(
-              children: [
-                Container(
-                  width: 350,
-                  height: 600,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("sua.jpg"),
-                        fit: BoxFit.fitHeight
-                      )
-                  ),
-                ),
-                Container(
-                  width: 600,
-                  height: 600,
-                  decoration: BoxDecoration(
-                    color: Color(Colors.white.toARGB32())
-                  ),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
+            Container(
+              width: 600,
+              height: 600,
+              decoration: BoxDecoration(
+                color: Color(Colors.white.toARGB32()),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(Colors.black.toARGB32()),
+                    blurStyle: BlurStyle.solid,
+                    blurRadius: 5.0
+                  )
+                ]
+              ),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    PConstant.hDistance30,
+
+                    PTextFormField(
+                      enable: !controller.getIsPending(),
+                      controller: controller.getEmailController(),
+                      width: 410,
+                      textInputType: TextInputType.emailAddress,
+                      labelText: "Email",
+                      hintText: "Nhập email của bạn",
+                      suffixIcon: Icon(
+                        Icons.email,
+                        color: controller.getIsEmailHover()
+                            ? Colors.orangeAccent
+                            : Colors.black,
+                      ),
+                      enableBorderColor: Color(Colors.black.toARGB32()),
+                      focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
+                      enableBorderRadius: 10,
+                      validate: (value) {
+                        if (PStringUtils.isEmpty(value)) {
+                          return "Vui lòng nhập email";
+                        }
+
+                        if (!PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))) {
+                          return "Email không hợp lệ";
+                        }
+
+                        return null;
+                      },
+                      onTap: () => controller.setIsEmailHover(true),
+                      onTapOutside: (_) => controller.setIsEmailHover(false),
+                      onChanged: (value) {
+                        bool isValid = PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
+                          && PStringUtils.isNotEmpty(value);
+                        controller.setIsDataValidated(isValid);
+                      },
+                    ),
+
+                    PConstant.hDistance10,
+
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        PConstant.hDistance30,
-        
                         PTextFormField(
                           enable: !controller.getIsPending(),
-                          controller: controller.getEmailController(),
-                          width: 410,
-                          textInputType: TextInputType.emailAddress,
-                          labelText: "Email",
-                          hintText: "Nhập email của bạn",
+                          controller: controller.getPasswordController(),
+                          obscureText: true,
+                          labelText: "Mật khẩu",
+                          hintText: "Nhập mật khẩu của bạn",
                           suffixIcon: Icon(
-                            Icons.email,
-                            color: controller.getIsEmailHover()
+                            Icons.password,
+                            color: controller.getIsPasswordHover()
                                 ? Colors.orangeAccent
                                 : Colors.black,
                           ),
                           enableBorderColor: Color(Colors.black.toARGB32()),
                           focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
+                          focusErrorBorderColor: Color(Colors.red.shade100.toARGB32()),
                           enableBorderRadius: 10,
                           validate: (value) {
                             if (PStringUtils.isEmpty(value)) {
-                              return "Vui lòng nhập email";
+                              return "Vui lòng nhập mật khẩu";
                             }
-        
-                            if (!PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))) {
-                              return "Email không hợp lệ";
-                            }
-        
+
                             return null;
                           },
-                          onTap: () => controller.setIsEmailHover(true),
-                          onTapOutside: (_) => controller.setIsEmailHover(false),
-                          onChanged: (value) {
-                            bool isValid = PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
-                              && PStringUtils.isNotEmpty(value);
-                            controller.setIsDataValidated(isValid);
-                          },
-                        ),
-        
-                        PConstant.hDistance10,
-        
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            PTextFormField(
-                              enable: !controller.getIsPending(),
-                              controller: controller.getPasswordController(),
-                              obscureText: true,
-                              labelText: "Mật khẩu",
-                              hintText: "Nhập mật khẩu của bạn",
-                              suffixIcon: Icon(
-                                Icons.password,
-                                color: controller.getIsPasswordHover()
-                                    ? Colors.orangeAccent
-                                    : Colors.black,
-                              ),
-                              enableBorderColor: Color(Colors.black.toARGB32()),
-                              focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
-                              focusErrorBorderColor: Color(Colors.red.shade100.toARGB32()),
-                              enableBorderRadius: 10,
-                              validate: (value) {
-                                if (PStringUtils.isEmpty(value)) {
-                                  return "Vui lòng nhập mật khẩu";
-                                }
-        
-                                return null;
-                              },
-                              onTap: () => controller.setIsPasswordHover(true),
-                              onTapOutside: (_) => controller
-                                  .setIsFirstNameHover(false),
-                              onChanged: (value) => controller
-                                  .setIsDataValidated(PStringUtils.isNotEmpty(value)),
-                            ),
-        
-                            PConstant.vDistance5,
-        
-                            PTextFormField(
-                              enable: !controller.getIsPending(),
-                              controller: controller.getRePasswordController(),
-                              obscureText: true,
-                              labelText: "Xác nhận mật khẩu",
-                              hintText: "Nhập lại mật khẩu của bạn",
-                              suffixIcon: Icon(
-                                Icons.password,
-                                color: controller.getIsRePasswordHover()
-                                    ? Colors.orangeAccent
-                                    : Colors.black,
-                              ),
-                              enableBorderColor: Color(Colors.black.toARGB32()),
-                              focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
-                              focusErrorBorderColor: Color(Colors.red.shade100.toARGB32()),
-                              enableBorderRadius: 10,
-                              validate: (value) {
-                                if(PStringUtils.isEmpty(value)) {
-                                  return "Vui lòng nhập lại mật khẩu";
-                                }
-        
-                                if (!controller.getIsPassValidated()) {
-                                  return "Mật khẩu không khớp";
-                                }
-        
-                                return null;
-                              },
-                              onTap: () => controller.setIsRePasswordHover(true),
-                              onTapOutside: (_) => controller
-                                     .setIsFirstNameHover(false),
-                              onChanged: (value) {
-                                controller.setValidatePass();
-                              },
-        
-                            ),
-                          ],
-                        ),
-        
-                        PConstant.hDistance30,
-        
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            PTextFormField(
-                              enable: !controller.getIsPending(),
-                              controller: controller.getFirstNameController(),
-                              labelText: "Họ",
-                              hintText: "Nhập họ của bạn",
-                              suffixIcon: Icon(
-                                Icons.account_circle_outlined,
-                                color: controller.getIsFirstNameHover()
-                                    ? Colors.orangeAccent
-                                    : Colors.black,
-                              ),
-                              enableBorderColor: Color(Colors.black.toARGB32()),
-                              focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
-                              focusErrorBorderColor: Color(Colors.red.shade100.toARGB32()),
-                              enableBorderRadius: 10,
-                              validate: (value) {
-                                if (PStringUtils.isEmpty(value)) {
-                                  return "Vui lòng nhập tên của bạn";
-                                }
-        
-                                return null;
-                              },
-                              onTap: () => controller.setIsFirstNameHover(true),
-                              onTapOutside: (_) => controller
-                                  .setIsFirstNameHover(false),
-                              onChanged: (value) {
-                                controller.setIsDataValidated(PStringUtils
-                                    .isNotEmpty(value));
-                              },
-        
-                            ),
-        
-                            PConstant.vDistance5,
-        
-                            PTextFormField(
-                              enable: !controller.getIsPending(),
-                              controller: controller.getLastNameController(),
-                              labelText: "Tên",
-                              hintText: "Nhập tên của bạn",
-                              suffixIcon: Icon(
-                                Icons.account_circle,
-                                color: controller.getIsLastNameHover()
-                                    ? Colors.orangeAccent
-                                    : Colors.black,
-                              ),
-                              enableBorderColor: Color(Colors.black.toARGB32()),
-                              focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
-                              enableBorderRadius: 10,
-                              validate: (value) {
-                                if (PStringUtils.isEmpty(value)) {
-                                  return "Vui lòng nhập tên của bạn";
-                                }
-        
-                                return null;
-                              },
-                              onTap: () => controller.setIsLastNameHover(true),
-                              onTapOutside: (_) => controller
-                                  .setIsLastNameHover(false),
-                              onChanged: (value) {
-                                controller.setIsDataValidated(PStringUtils
-                                    .isNotEmpty(value));
-                              },
-                            )
-                          ],
-                        ),
-        
-                        PConstant.hDistance10,
-        
-                        PDateRangePicker(
-                          enable: !controller.getIsPending(),
-                          controller: controller.getBirthdayController(),
-                          width: 410,
-                          selectionColor: Colors.orangeAccent,
-                          backgroundColor: Colors.white,
-                          textInputType: TextInputType.emailAddress,
-                          labelText: "Ngày sinh",
-                          hintText: "Chọn ngày sinh của bạn",
-                          suffixIcon: Icon(
-                            Icons.cake,
-                            color: controller.getIsBirthdayHover()
-                                ? Colors.orangeAccent
-                                : Colors.black,
-                          ),
-                          enableBorderColor: Color(Colors.black.toARGB32()),
-                          focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
-                          enableBorderRadius: 10,
-                          validate: (value) {
-                            if (PStringUtils.isEmpty(value)) {
-                              return "Vui lòng nhập ngày sinh của bạn";
-                            }
-        
-                            return null;
-                          },
-                          onTapOutside: (_) => controller.setIsBirthdayHover(false),
-                          onChanged: (value) {
-                            controller.setIsDataValidated(PStringUtils.isNotEmpty(value));
-                          },
-                        ),
-        
-                        PConstant.hDistance10,
-        
-                        PTextFormField(
-                          width: 410,
-                          enable: !controller.getIsPending(),
-                          controller: controller.getPhoneController(),
-                          labelText: "Số điện thoại",
-                          hintText: "Nhập số điện thoại của bạn",
-                          textInputType: TextInputType.number,
-                          suffixIcon: Icon(
-                            Icons.phone,
-                            color: controller.getIsPhoneHover()
-                                ? Colors.orangeAccent
-                                : Colors.black,
-                          ),
-                          enableBorderColor: Color(Colors.black.toARGB32()),
-                          focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
-                          enableBorderRadius: 10,
-                          validate: (value) {
-                            if (PStringUtils.isEmpty(value)) {
-                              return "Vui lòng nhập số điện thoại";
-                            }
-        
-                            if (!PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))) {
-                              return "Số điện thoại không hợp lệ";
-                            }
-        
-                            return null;
-                          },
-                          onTap: () => controller.setIsPhoneHover(true),
+                          onTap: () => controller.setIsPasswordHover(true),
                           onTapOutside: (_) => controller
-                              .setIsPhoneHover(false),
-                          onChanged: (value) {
-                            bool isValidated = PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))
-                              && PStringUtils.isNotEmpty(value);
-                            controller.setIsDataValidated(isValidated);
-                          }
+                              .setIsFirstNameHover(false),
+                          onChanged: (value) => controller
+                              .setIsDataValidated(PStringUtils.isNotEmpty(value)),
                         ),
-        
-                        PConstant.hDistance10,
-        
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                              PText(
-                                  content: "Bạn đã có tài khoản?",
-                                  fontSize: 15,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  style: TextStyle(color: Colors.black),
-                                  children: [
-                                    TextSpan(
-                                      text: 'Đăng nhập tại đây',
-                                      style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
-                                      recognizer: TapGestureRecognizer()..onTap = () => Get.toNamed(PRoute.loginScreen),
-                                    ),
-                                  ]
-                                ),
-                              )
-                          ]
-                        ),
-        
-                        PConstant.hDistance10,
-        
-                        PButton(
-                          width: 300,
-                          title: PText(
-                              content: "Đăng ký",
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              textColor: Color(Colors.white.toARGB32()),
+
+                        PConstant.vDistance5,
+
+                        PTextFormField(
+                          enable: !controller.getIsPending(),
+                          controller: controller.getRePasswordController(),
+                          obscureText: true,
+                          labelText: "Xác nhận mật khẩu",
+                          hintText: "Nhập lại mật khẩu của bạn",
+                          suffixIcon: Icon(
+                            Icons.password,
+                            color: controller.getIsRePasswordHover()
+                                ? Colors.orangeAccent
+                                : Colors.black,
                           ),
-                          backgroundColor: controller.getIsDataValidated()
-                              ? Color(Colors.green.toARGB32())
-                              : Color(Colors.grey.toARGB32()),
-                          onPress:() {
-                            if (formKey.currentState!.validate()) {
-                              controller.register();
+                          enableBorderColor: Color(Colors.black.toARGB32()),
+                          focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
+                          focusErrorBorderColor: Color(Colors.red.shade100.toARGB32()),
+                          enableBorderRadius: 10,
+                          validate: (value) {
+                            if(PStringUtils.isEmpty(value)) {
+                              return "Vui lòng nhập lại mật khẩu";
                             }
-        
+
+                            if (!controller.getIsPassValidated()) {
+                              return "Mật khẩu không khớp";
+                            }
+
+                            return null;
                           },
+                          onTap: () => controller.setIsRePasswordHover(true),
+                          onTapOutside: (_) => controller
+                                 .setIsFirstNameHover(false),
+                          onChanged: (value) {
+                            controller.setValidatePass();
+                          },
+
                         ),
-                        PConstant.hDistance10
                       ],
                     ),
-                  ),
+
+                    PConstant.hDistance30,
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        PTextFormField(
+                          enable: !controller.getIsPending(),
+                          controller: controller.getFirstNameController(),
+                          labelText: "Họ",
+                          hintText: "Nhập họ của bạn",
+                          suffixIcon: Icon(
+                            Icons.account_circle_outlined,
+                            color: controller.getIsFirstNameHover()
+                                ? Colors.orangeAccent
+                                : Colors.black,
+                          ),
+                          enableBorderColor: Color(Colors.black.toARGB32()),
+                          focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
+                          focusErrorBorderColor: Color(Colors.red.shade100.toARGB32()),
+                          enableBorderRadius: 10,
+                          validate: (value) {
+                            if (PStringUtils.isEmpty(value)) {
+                              return "Vui lòng nhập họ của bạn";
+                            }
+
+                            return null;
+                          },
+                          onTap: () => controller.setIsFirstNameHover(true),
+                          onTapOutside: (_) => controller
+                              .setIsFirstNameHover(false),
+                          onChanged: (value) {
+                            controller.setIsDataValidated(PStringUtils
+                                .isNotEmpty(value));
+                          },
+
+                        ),
+
+                        PConstant.vDistance5,
+
+                        PTextFormField(
+                          enable: !controller.getIsPending(),
+                          controller: controller.getLastNameController(),
+                          labelText: "Tên",
+                          hintText: "Nhập tên của bạn",
+                          suffixIcon: Icon(
+                            Icons.account_circle,
+                            color: controller.getIsLastNameHover()
+                                ? Colors.orangeAccent
+                                : Colors.black,
+                          ),
+                          enableBorderColor: Color(Colors.black.toARGB32()),
+                          focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
+                          enableBorderRadius: 10,
+                          validate: (value) {
+                            if (PStringUtils.isEmpty(value)) {
+                              return "Vui lòng nhập tên của bạn";
+                            }
+
+                            return null;
+                          },
+                          onTap: () => controller.setIsLastNameHover(true),
+                          onTapOutside: (_) => controller
+                              .setIsLastNameHover(false),
+                          onChanged: (value) {
+                            controller.setIsDataValidated(PStringUtils
+                                .isNotEmpty(value));
+                          },
+                        )
+                      ],
+                    ),
+
+                    PConstant.hDistance10,
+
+                    PDateRangePicker(
+                      enable: !controller.getIsPending(),
+                      controller: controller.getBirthdayController(),
+                      width: 410,
+                      selectionColor: Colors.orangeAccent,
+                      backgroundColor: Colors.white,
+                      textInputType: TextInputType.emailAddress,
+                      labelText: "Ngày sinh",
+                      hintText: "Chọn ngày sinh của bạn",
+                      suffixIcon: Icon(
+                        Icons.cake,
+                        color: controller.getIsBirthdayHover()
+                            ? Colors.orangeAccent
+                            : Colors.black,
+                      ),
+                      enableBorderColor: Color(Colors.black.toARGB32()),
+                      focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
+                      enableBorderRadius: 10,
+                      validate: (value) {
+                        if (PStringUtils.isEmpty(value)) {
+                          return "Vui lòng nhập ngày sinh của bạn";
+                        }
+
+                        return null;
+                      },
+                      onTapOutside: (_) => controller.setIsBirthdayHover(false),
+                      onChanged: (value) {
+                        controller.setIsDataValidated(PStringUtils.isNotEmpty(value));
+                      },
+                    ),
+
+                    PConstant.hDistance10,
+
+                    PTextFormField(
+                      width: 410,
+                      enable: !controller.getIsPending(),
+                      controller: controller.getPhoneController(),
+                      labelText: "Số điện thoại",
+                      hintText: "Nhập số điện thoại của bạn",
+                      textInputType: TextInputType.number,
+                      suffixIcon: Icon(
+                        Icons.phone,
+                        color: controller.getIsPhoneHover()
+                            ? Colors.orangeAccent
+                            : Colors.black,
+                      ),
+                      enableBorderColor: Color(Colors.black.toARGB32()),
+                      focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
+                      enableBorderRadius: 10,
+                      validate: (value) {
+                        if (PStringUtils.isEmpty(value)) {
+                          return "Vui lòng nhập số điện thoại";
+                        }
+
+                        if (!PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))) {
+                          return "Số điện thoại không hợp lệ";
+                        }
+
+                        return null;
+                      },
+                      onTap: () => controller.setIsPhoneHover(true),
+                      onTapOutside: (_) => controller
+                          .setIsPhoneHover(false),
+                      onChanged: (value) {
+                        bool isValidated = PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))
+                          && PStringUtils.isNotEmpty(value);
+                        controller.setIsDataValidated(isValidated);
+                      }
+                    ),
+
+                    PConstant.hDistance50,
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                          PText(
+                              content: "Bạn đã có tài khoản?",
+                              fontSize: 15,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.black),
+                              children: [
+                                TextSpan(
+                                  text: 'Đăng nhập tại đây',
+                                  style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+                                  recognizer: TapGestureRecognizer()..onTap = () => Get.toNamed(PRoute.loginScreen),
+                                ),
+                              ]
+                            ),
+                          )
+                      ]
+                    ),
+
+                    PConstant.hDistance10,
+
+                    PButton(
+                      width: 300,
+                      title: PText(
+                          content: "Đăng ký",
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          textColor: Color(Colors.white.toARGB32()),
+                      ),
+                      backgroundColor: controller.getIsDataValidated()
+                          ? Color(Colors.green.toARGB32())
+                          : Color(Colors.grey.toARGB32()),
+                      onPress:() {
+                        if (formKey.currentState!.validate()) {
+                          controller.register();
+                        }
+
+                      },
+                    ),
+                    PConstant.hDistance10
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     ),);

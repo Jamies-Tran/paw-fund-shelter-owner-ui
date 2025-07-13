@@ -5,7 +5,7 @@ import 'package:paw_fund_shelter_owner/screens/registrations/repository/api/mode
 import 'package:paw_fund_shelter_owner/screens/registrations/repository/api/registration_api.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 
-class RegistrationController {
+class RegistrationController extends GetxController {
 
   final Rx<TextEditingController> _firstNameController = TextEditingController().obs;
   final Rx<bool> _isFirstNameHover = false.obs;
@@ -27,8 +27,6 @@ class RegistrationController {
   bool getIsFirstNameHover() {
     return _isFirstNameHover.value;
   }
-
-
 
   final Rx<TextEditingController> _lastNameController = TextEditingController().obs;
   final Rx<bool> _isLastNameHover = false.obs;
