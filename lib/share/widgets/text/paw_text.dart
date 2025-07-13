@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:paw_fund_shelter_owner/screens/registrations/controller/registration_controller.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class PText extends StatelessWidget {
   const PText({
@@ -52,6 +54,10 @@ class PTextFormField extends StatelessWidget {
   const PTextFormField({
     super.key,
 
+    this.controller,
+
+    this.enable,
+
     required this.labelText,
     required this.hintText,
     required this.suffixIcon,
@@ -79,6 +85,9 @@ class PTextFormField extends StatelessWidget {
     this.onTap,
     this.onTapOutside
   });
+  final TextEditingController? controller;
+
+  final bool? enable;
 
   final String labelText;
   final String hintText;
@@ -113,6 +122,8 @@ class PTextFormField extends StatelessWidget {
     return SizedBox(
       width: PObjectUtils.requiredNonNullOrElse(width, 200),
       child: TextFormField(
+        controller: controller,
+        enabled: PObjectUtils.requiredNonNullOrElse(enable, true),
         obscureText: PObjectUtils.requiredNonNullOrElse(obscureText, false),
         keyboardType: PObjectUtils
             .requiredNonNullOrElse(textInputType, TextInputType.text),
@@ -177,6 +188,229 @@ class PTextFormField extends StatelessWidget {
         onChanged: onChanged,
         onTap: onTap,
         onTapOutside: onTapOutside,
+
+      ),
+    );
+  }
+}
+
+
+class PDateRangePicker extends StatefulWidget {
+  const PDateRangePicker({
+    super.key,
+
+    this.controller,
+    this.enable,
+
+    required this.labelText,
+    required this.hintText,
+    required this.suffixIcon,
+
+    this.obscureText,
+    this.labelColor,
+    this.labelFontSize,
+    this.wordSpacing,
+    this.fontStyle,
+    this.enableBorderColor,
+    this.errorBorderColor,
+    this.focusBorderColor,
+    this.focusErrorBorderColor,
+    this.enableBorderStyle,
+    this.errorBorderStyle,
+    this.focusBorderStyle,
+    this.focusErrorBorderStyle,
+    this.enableBorderRadius,
+    this.focusBorderRadius,
+    this.width,
+    this.textInputType,
+
+    this.backgroundColor,
+    this.selectionColor,
+    this.selectionMode,
+    this.initialSelectDate,
+    this.initialSelectDates,
+    this.initialSelectDateRange,
+
+    this.validate,
+    this.onChanged,
+    this.onEditingComplete,
+    this.onTapOutside
+  });
+
+  final bool? enable;
+
+  final TextEditingController? controller;
+
+  final String labelText;
+  final String hintText;
+  final Icon suffixIcon;
+
+  final bool? obscureText;
+  final Color? labelColor;
+  final double? labelFontSize;
+  final double? wordSpacing;
+  final FontStyle? fontStyle;
+  final Color? enableBorderColor;
+  final Color? errorBorderColor;
+  final Color? focusBorderColor;
+  final Color? focusErrorBorderColor;
+  final BorderStyle? enableBorderStyle;
+  final BorderStyle? errorBorderStyle;
+  final BorderStyle? focusBorderStyle;
+  final BorderStyle? focusErrorBorderStyle;
+  final double? enableBorderRadius;
+  final double? focusBorderRadius;
+  final double? width;
+  final TextInputType? textInputType;
+
+  final Color? backgroundColor;
+  final Color? selectionColor;
+  final DateRangePickerSelectionMode? selectionMode;
+  final DateTime? initialSelectDate;
+  final List<DateTime>? initialSelectDates;
+  final List<PickerDateRange>? initialSelectDateRange;
+
+  final FormFieldValidator<String>? validate;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onEditingComplete;
+  final ValueChanged<PointerDownEvent>? onTapOutside;
+
+  @override
+  State<PDateRangePicker> createState() => _PDateRangePickerState();
+}
+
+class _PDateRangePickerState extends State<PDateRangePicker> {
+  OverlayEntry? _overlayEntry;
+  final LayerLink _layerLink = LayerLink();
+
+  void _closeDateRangePicker() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  void _showDateRangePicker() {
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          width: 410,
+          child: CompositedTransformFollower(
+            link: _layerLink,
+            showWhenUnlinked: false,
+            offset: Offset(0, 50),
+            child: Material(
+              elevation: 4,
+              child: SfDateRangePicker(
+                selectionMode: PObjectUtils
+                    .requiredNonNullOrElse(widget.selectionMode, DateRangePickerSelectionMode.single),
+                selectionColor: PObjectUtils
+                    .requiredNonNullOrElse(widget.selectionColor, Color(Colors.white54.toARGB32())),
+                backgroundColor: PObjectUtils
+                    .requiredNonNullOrElse(widget.backgroundColor, Color(Colors.orangeAccent.toARGB32())),
+                monthViewSettings: DateRangePickerMonthViewSettings(showTrailingAndLeadingDates: false),
+                initialSelectedDate: PObjectUtils
+                    .requiredNonNullOrElse(widget.initialSelectDate, DateTime.now()),
+                initialSelectedDates: PObjectUtils
+                    .requiredNonNullOrElse(widget.initialSelectDates, []),
+                initialSelectedRanges: PObjectUtils
+                    .requiredNonNullOrElse(widget.initialSelectDateRange, []),
+                onSelectionChanged: (value) {
+
+                  widget.controller!.text = value.value.toString().substring(0, 10);
+                  _closeDateRangePicker();
+                },
+
+              ),
+            ),
+          ),
+        );
+      },);
+
+    Overlay.of(context).insert(_overlayEntry!);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: PObjectUtils.requiredNonNullOrElse(widget.width, 200),
+      child: CompositedTransformTarget (
+        link: _layerLink,
+        child: TextFormField(
+          controller: widget.controller,
+          enabled: PObjectUtils.requiredNonNullOrElse(widget.enable, true),
+          readOnly: true,
+          obscureText: PObjectUtils.requiredNonNullOrElse(widget.obscureText, false),
+          keyboardType: PObjectUtils
+              .requiredNonNullOrElse(widget.textInputType, TextInputType.text),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: InputDecoration(
+            labelText: widget.labelText,
+            labelStyle: TextStyle(
+              color: PObjectUtils.requiredNonNullOrElse(
+                  widget.labelColor, PConstant.orangeAccent),
+              fontSize: PObjectUtils.requiredNonNullOrElse(widget.labelFontSize, 15.0),
+              wordSpacing: PObjectUtils.requiredNonNullOrElse(widget.wordSpacing, 1.0),
+              fontStyle: PObjectUtils.requiredNonNullOrElse(widget.fontStyle, FontStyle.normal),
+            ),
+            hintText: widget.hintText,
+            hintFadeDuration: Duration(seconds: 1),
+            hintStyle: TextStyle(
+                color: Color(Colors.grey.shade400.toARGB32())
+            ),
+            suffixIcon: widget.suffixIcon,
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: PObjectUtils.requiredNonNullOrElse(
+                      widget.enableBorderColor, Color(PConstant.black.toARGB32())),
+                  style: PObjectUtils.requiredNonNullOrElse(widget.enableBorderStyle,
+                      BorderStyle.solid),
+                ),
+                borderRadius: BorderRadius.circular(PObjectUtils
+                    .requiredNonNullOrElse(widget.enableBorderRadius, 1.0))
+            ),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: PObjectUtils.requiredNonNullOrElse(
+                        widget.focusBorderColor, Color(PConstant.black.toARGB32())),
+                    style: PObjectUtils.requiredNonNullOrElse(widget.focusBorderStyle,
+                        BorderStyle.solid)
+                ),
+                borderRadius: BorderRadius.circular(PObjectUtils
+                    .requiredNonNullOrElse(widget.focusBorderRadius, 1.0))
+            ),
+            errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: PObjectUtils.requiredNonNullOrElse(
+                        widget.errorBorderColor, Color(Colors.red.toARGB32())),
+                    style: PObjectUtils.requiredNonNullOrElse(widget.errorBorderStyle,
+                        BorderStyle.solid)
+                ),
+                borderRadius: BorderRadius.circular(PObjectUtils
+                    .requiredNonNullOrElse(widget.focusBorderRadius, 1.0))
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: PObjectUtils.requiredNonNullOrElse(
+                        widget.focusErrorBorderColor, Color(PConstant.red.toARGB32())),
+                    style: PObjectUtils.requiredNonNullOrElse(widget.focusErrorBorderStyle,
+                        BorderStyle.solid)
+                ),
+                borderRadius: BorderRadius.circular(PObjectUtils
+                    .requiredNonNullOrElse(widget.focusBorderRadius, 1.0))
+            ),
+          ),
+          validator: widget.validate,
+          onChanged: widget.onChanged,
+
+          onTap: () {
+            if (PObjectUtils.isNull(_overlayEntry)) {
+              _showDateRangePicker();
+            } else {
+              _closeDateRangePicker();
+            }
+          },
+          onTapOutside: widget.onTapOutside,
+        ),
       ),
     );
   }

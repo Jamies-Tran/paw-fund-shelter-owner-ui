@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 class PObjectUtils {
   static bool isNull(Object? input) {
     return input == null;
@@ -35,5 +37,15 @@ class PStringUtils {
     }
 
     return regex.hasMatch(input!);
+  }
+}
+
+class PResponseStatusUtils {
+  static bool isSuccess(Response response) {
+    if (response.statusCode == null) {
+      return false;
+    }
+
+    return response.statusCode! >= 200 && response.statusCode! <= 299;
   }
 }

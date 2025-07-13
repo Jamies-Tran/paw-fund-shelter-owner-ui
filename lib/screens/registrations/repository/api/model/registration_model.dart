@@ -1,4 +1,21 @@
 class Account {
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String phone;
+  final String password;
+
+  final String? avatar;
+  final String? identification;
+  final String? address;
+
+  final DateTime? dateOfBirth;
+
+  final String? genderCode;
+  final String? genderName;
+
+  final List<Media>? medias;
+
   const Account({
     required this.firstName,
     required this.lastName,
@@ -16,24 +33,7 @@ class Account {
     this.genderName,
 
     this.medias
-});
-
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String phone;
-  final String password;
-
-  final String? avatar;
-  final String? identification;
-  final String? address;
-
-  final String? dateOfBirth;
-
-  final String? genderCode;
-  final String? genderName;
-
-  final List<Media>? medias;
+  });
 
   Map<String, dynamic> toJson() => {
     "firstName": firstName,
@@ -46,7 +46,7 @@ class Account {
     "identification": identification,
     "address": address,
 
-    "dateOfBirth": dateOfBirth,
+    "dateOfBirth": dateOfBirth?.toIso8601String(),
 
     "genderCode": genderCode,
     "genderName": genderName,

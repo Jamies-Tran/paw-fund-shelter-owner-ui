@@ -5,7 +5,7 @@ import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
 class PButton extends StatelessWidget {
   const PButton({
     super.key,
-    required this.onPress,
+    this.onPress,
     required this.title,
     this.backgroundColor,
     this.shadowColor,
@@ -16,7 +16,7 @@ class PButton extends StatelessWidget {
     this.height
   });
 
-  final VoidCallback onPress;
+  final VoidCallback? onPress;
   final Widget title;
   final Color? backgroundColor;
   final Color? shadowColor;

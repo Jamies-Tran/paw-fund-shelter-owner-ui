@@ -10,7 +10,8 @@ window.env = {
     FIREBASE_MEASUREMENT_ID: "G-CZZR22EX5J",
 
     // api
-    PAW_DOMAIN: "https://pawfund-core-service-2e6d01c7cb49.herokuapp.com"
+    //PAW_DOMAIN: "https://pawfund-core-service-2e6d01c7cb49.herokuapp.com"
+    PAW_DOMAIN: "http://localhost:8080"
 };
 
 window.env.PAW_REGISTRATION = `${window.env.PAW_DOMAIN}/v1/pub/account/shelter-owner`;
