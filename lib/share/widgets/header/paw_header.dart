@@ -82,25 +82,25 @@ class PDesktopLayoutV1 extends StatelessWidget {
               flex: 3,
               child: PMenuItem(
                 onTap: () {
-                  Get.toNamed(PRoute.homeScreen);
+                  Get.toNamed(PRoute.homeView);
                 },
                 onEnter: (_) => menuItemController
-                    .setCurrentHoveringRoute(PRoute.homeScreen),
+                    .setCurrentHoveringRoute(PRoute.homeView),
                 onExit: (_) => menuItemController
                     .setCurrentHoveringRoute(""),
                 paddingAll: 0.0,
                 title: "Giới thiệu",
-                backgroundColor: menuItemController.getIsMenuItemSelected(PRoute.homeScreen)
+                backgroundColor: menuItemController.getIsMenuItemSelected(PRoute.homeView)
                     ? PConstant.orangeAccent
                     : PConstant.transparent,
-                textSize: menuItemController.getIsMenuItemHovering(PRoute.homeScreen)
+                textSize: menuItemController.getIsMenuItemHovering(PRoute.homeView)
                     ? 17
-                    : menuItemController.getIsMenuItemSelected(PRoute.homeScreen)
+                    : menuItemController.getIsMenuItemSelected(PRoute.homeView)
                     ? 15
                     : 13,
-                textColor: menuItemController.getIsMenuItemHovering(PRoute.homeScreen)
+                textColor: menuItemController.getIsMenuItemHovering(PRoute.homeView)
                     ? PConstant.white
-                    : menuItemController.getIsMenuItemSelected(PRoute.homeScreen)
+                    : menuItemController.getIsMenuItemSelected(PRoute.homeView)
                     ? PConstant.white
                     : PConstant.black,)
           ),
@@ -109,25 +109,25 @@ class PDesktopLayoutV1 extends StatelessWidget {
             flex: 3,
             child: PMenuItem(
               onTap: () {
-                Get.toNamed(PRoute.shelterIntroScreen);
+                Get.toNamed(PRoute.shelterIntroView);
               },
               onEnter: (_) => menuItemController
-                  .setCurrentHoveringRoute(PRoute.shelterIntroScreen),
+                  .setCurrentHoveringRoute(PRoute.shelterIntroView),
               onExit: (_) => menuItemController
                   .setCurrentHoveringRoute(""),
               paddingAll: 0.0,
               title: "Trung tâm cứu trợ",
-              backgroundColor: menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen)
+              backgroundColor: menuItemController.getIsMenuItemSelected(PRoute.shelterIntroView)
                   ? PConstant.orangeAccent
                   : PConstant.transparent,
-              textSize: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroScreen)
+              textSize: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroView)
                   ? 17
-                  : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen)
+                  : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroView)
                   ? 15
                   : 13,
-              textColor: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroScreen)
+              textColor: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroView)
                   ? PConstant.white
-                  : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen)
+                  : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroView)
                   ? PConstant.white
                   : PConstant.black,
             ),
@@ -136,24 +136,24 @@ class PDesktopLayoutV1 extends StatelessWidget {
           Expanded(
             flex: 3,
             child: PMenuItem(
-              onTap: () => Get.toNamed(PRoute.contractScreen),
+              onTap: () => Get.toNamed(PRoute.contractView),
               onEnter: (_) => menuItemController
-                  .setCurrentHoveringRoute(PRoute.contractScreen),
+                  .setCurrentHoveringRoute(PRoute.contractView),
               onExit: (_) => menuItemController
                   .setCurrentHoveringRoute(""),
               paddingAll: 0.0,
               title: "Liên hệ",
-              backgroundColor: menuItemController.getIsMenuItemSelected(PRoute.contractScreen)
+              backgroundColor: menuItemController.getIsMenuItemSelected(PRoute.contractView)
                   ? PConstant.orangeAccent
                   : PConstant.transparent,
-              textSize: menuItemController.getIsMenuItemHovering(PRoute.contractScreen)
+              textSize: menuItemController.getIsMenuItemHovering(PRoute.contractView)
                   ? 17
-                  : menuItemController.getIsMenuItemSelected(PRoute.contractScreen)
+                  : menuItemController.getIsMenuItemSelected(PRoute.contractView)
                   ? 15
                   : 13,
-              textColor: menuItemController.getIsMenuItemHovering(PRoute.contractScreen)
+              textColor: menuItemController.getIsMenuItemHovering(PRoute.contractView)
                   ? PConstant.white
-                  : menuItemController.getIsMenuItemSelected(PRoute.contractScreen)
+                  : menuItemController.getIsMenuItemSelected(PRoute.contractView)
                   ? PConstant.white
                   : PConstant.black,
             ),

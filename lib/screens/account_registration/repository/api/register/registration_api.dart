@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:paw_fund_shelter_owner/screens/registrations/repository/api/model/registration_model.dart';
+import 'package:paw_fund_shelter_owner/screens/account_registration/repository/api/register/model/registration_model.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_api_utils.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
-import 'package:dio/dio.dart';
 import 'package:paw_fund_shelter_owner/share/constans/route/routes.dart';
 
 abstract class IRegistrationApi {
@@ -23,7 +22,7 @@ class RegistrationApiImpl extends IRegistrationApi {
   Future register(Account account) async {
     var response = await _api.doPost(PAW_REGISTRATION, account.toJson());
     if (PResponseStatusUtils.isSuccess(response)) {
-      Get.toNamed(PRoute.loginScreen);
+      Get.toNamed(PRoute.sendingVerificationView);
     }
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:paw_fund_shelter_owner/screens/registrations/repository/api/model/registration_model.dart';
-import 'package:paw_fund_shelter_owner/screens/registrations/repository/api/registration_api.dart';
+import 'package:paw_fund_shelter_owner/screens/account_registration/repository/api/register/model/registration_model.dart';
+import 'package:paw_fund_shelter_owner/screens/account_registration/repository/api/register/registration_api.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 
 class RegistrationController extends GetxController {
@@ -12,6 +12,10 @@ class RegistrationController extends GetxController {
 
   TextEditingController getFirstNameController() {
     return _firstNameController.value;
+  }
+
+  void clearFirstNameText() {
+    _firstNameController.value.clear();
   }
 
   void setIsFirstNameHover(bool isFirstNameHover) {
@@ -28,11 +32,19 @@ class RegistrationController extends GetxController {
     return _isFirstNameHover.value;
   }
 
+  bool getIsFirstNameEditing() {
+    return PStringUtils.isNotEmpty(_firstNameController.value.text);
+  }
+
   final Rx<TextEditingController> _lastNameController = TextEditingController().obs;
   final Rx<bool> _isLastNameHover = false.obs;
 
   TextEditingController getLastNameController() {
     return _lastNameController.value;
+  }
+
+  void clearLastNameText() {
+    _lastNameController.value.clear();
   }
 
   void setIsLastNameHover(bool isLastNameHover) {
@@ -49,12 +61,20 @@ class RegistrationController extends GetxController {
     return _isLastNameHover.value;
   }
 
+  bool getIsLastNameEditing() {
+    return PStringUtils.isNotEmpty(_lastNameController.value.text);
+  }
+
 
   final Rx<TextEditingController> _birthdayController = TextEditingController().obs;
   final Rx<bool> _isBirthdayHover = false.obs;
 
   TextEditingController getBirthdayController() {
     return _birthdayController.value;
+  }
+
+  void clearBirthdayText() {
+    _birthdayController.value.clear();
   }
 
   void setIsBirthdayHover(bool isBirthdayHover) {
@@ -71,12 +91,20 @@ class RegistrationController extends GetxController {
     return _isBirthdayHover.value;
   }
 
+  bool getIsBirthdayEditing() {
+    return PStringUtils.isNotEmpty(_birthdayController.value.text);
+  }
+
 
   final Rx<TextEditingController> _emailController = TextEditingController().obs;
   final Rx<bool> _isEmailHover = false.obs;
 
   TextEditingController getEmailController() {
     return _emailController.value;
+  }
+
+  void clearEmailText() {
+    _emailController.value.clear();
   }
 
   void setIsEmailHover(bool isEmailHover) {
@@ -93,12 +121,20 @@ class RegistrationController extends GetxController {
     return _isEmailHover.value;
   }
 
+  bool getIsEmailEditing() {
+    return PStringUtils.isNotEmpty(_emailController.value.text);
+  }
+
 
   final Rx<TextEditingController> _phoneController = TextEditingController().obs;
   final Rx<bool> _isPhoneHover = false.obs;
 
   TextEditingController getPhoneController() {
     return _phoneController.value;
+  }
+
+  void clearPhoneText() {
+    return _phoneController.value.clear();
   }
 
   void setIsPhoneHover(bool isPhoneHover) {
@@ -115,12 +151,20 @@ class RegistrationController extends GetxController {
     return _isPhoneHover.value;
   }
 
+  bool getIsPhoneEditing() {
+    return PStringUtils.isNotEmpty(_phoneController.value.text);
+  }
+
 
   final Rx<TextEditingController> _passwordController = TextEditingController().obs;
   final Rx<bool> _isPasswordHover = false.obs;
 
   TextEditingController getPasswordController() {
     return _passwordController.value;
+  }
+
+  void clearPasswordText() {
+    _passwordController.value.clear();
   }
 
   void setIsPasswordHover(bool isPasswordHover) {
@@ -137,12 +181,20 @@ class RegistrationController extends GetxController {
     return _isPasswordHover.value;
   }
 
+  bool getIsPasswordEditing() {
+    return PStringUtils.isNotEmpty(_passwordController.value.text);
+  }
+
 
   final Rx<TextEditingController> _rePasswordController = TextEditingController().obs;
   final Rx<bool> _isRePasswordHover = false.obs;
 
   TextEditingController getRePasswordController() {
     return _rePasswordController.value;
+  }
+
+  void clearRePasswordText() {
+    _rePasswordController.value.clear();
   }
 
   void setIsRePasswordHover(bool isRePasswordHover) {
@@ -158,6 +210,10 @@ class RegistrationController extends GetxController {
 
   bool getIsRePasswordHover() {
     return _isRePasswordHover.value;
+  }
+
+  bool getIsRePasswordEditing() {
+    return PStringUtils.isNotEmpty(_rePasswordController.value.text);
   }
 
   final Rx<bool> _isPending = false.obs;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:paw_fund_shelter_owner/screens/registrations/controller/registration_controller.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -91,7 +90,7 @@ class PTextFormField extends StatelessWidget {
 
   final String labelText;
   final String hintText;
-  final Icon suffixIcon;
+  final Widget suffixIcon;
 
   final bool? obscureText;
   final Color? labelColor;
@@ -243,7 +242,7 @@ class PDateRangePicker extends StatefulWidget {
 
   final String labelText;
   final String hintText;
-  final Icon suffixIcon;
+  final Widget suffixIcon;
 
   final bool? obscureText;
   final Color? labelColor;

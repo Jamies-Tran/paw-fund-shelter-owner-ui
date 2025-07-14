@@ -170,7 +170,7 @@ class _PSubMenuItemState extends State<PSubMenuItem> {
                     children: [
                       PHoverButton(
                         onPress: () {
-                          Get.toNamed(PRoute.registrationScreen);
+                          Get.toNamed(PRoute.registrationView);
                         },
                         width: 200,
                         height: 30,
@@ -242,7 +242,8 @@ class _PSubMenuItemState extends State<PSubMenuItem> {
             child: Center(
               child: Row(
                 children: [
-                  PAccountAvatarIcon(
+                  PIcon(
+                    iconData: Icons.account_circle_outlined,
                     size: _isHover == true
                         ? PObjectUtils.requiredNonNullOrElse(widget.iconSizeHover, widget.iconSize)
                         : widget.iconSize,

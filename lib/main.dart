@@ -1,5 +1,4 @@
 
-import 'dart:ui_web';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:paw_fund_shelter_owner/share/constans/route/paw_routes.dart';
 import 'package:paw_fund_shelter_owner/share/data_binding/data_binding.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
-import 'dart:js_interop';
 
 import 'package:url_strategy/url_strategy.dart';
 

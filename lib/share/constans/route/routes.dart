@@ -1,7 +1,8 @@
 class PRoute {
-  static const String homeScreen = "/";
-  static const String shelterIntroScreen = "/shelter-intro";
-  static const String contractScreen = "/contract";
-  static const String loginScreen = "/login";
-  static const String registrationScreen = "/reg";
+  static const String homeView = "/";
+  static const String shelterIntroView = "/shelter-intro";
+  static const String contractView = "/contract";
+  static const String loginView = "/login";
+  static const String registrationView = "/register";
+  static const String sendingVerificationView = "/sending-verification";
 }

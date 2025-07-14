@@ -33,29 +33,29 @@ class PSideBar extends StatelessWidget {
 
           PMenuItem(
             onTap: () {
-              Get.toNamed(PRoute.homeScreen);
+              Get.toNamed(PRoute.homeView);
             },
             onEnter: (_) => menuItemController
-                .setCurrentHoveringRoute(PRoute.homeScreen),
+                .setCurrentHoveringRoute(PRoute.homeView),
             onExit: (_) => menuItemController
                 .setCurrentHoveringRoute(""),
             title: "Giới thiệu",
             paddingAll: 0.0,
             height: 50,
             width: 300,
-            backgroundColor: menuItemController.getIsMenuItemHovering(PRoute.homeScreen)
+            backgroundColor: menuItemController.getIsMenuItemHovering(PRoute.homeView)
                 ? PConstant.white
-                : menuItemController.getIsMenuItemSelected(PRoute.homeScreen)
+                : menuItemController.getIsMenuItemSelected(PRoute.homeView)
                 ? PConstant.white
                 : PConstant.transparent,
-            textSize: menuItemController.getIsMenuItemHovering(PRoute.homeScreen)
+            textSize: menuItemController.getIsMenuItemHovering(PRoute.homeView)
                 ? 17
-                : menuItemController.getIsMenuItemSelected(PRoute.homeScreen)
+                : menuItemController.getIsMenuItemSelected(PRoute.homeView)
                 ? 15
                 : 13,
-            textColor: menuItemController.getIsMenuItemHovering(PRoute.homeScreen)
+            textColor: menuItemController.getIsMenuItemHovering(PRoute.homeView)
                 ? PConstant.orangeAccent
-                : menuItemController.getIsMenuItemSelected(PRoute.homeScreen)
+                : menuItemController.getIsMenuItemSelected(PRoute.homeView)
                 ? PConstant.orangeAccent
                 : PConstant.white,),
 
@@ -63,29 +63,29 @@ class PSideBar extends StatelessWidget {
 
           PMenuItem(
             onTap: () {
-              Get.toNamed(PRoute.shelterIntroScreen);
+              Get.toNamed(PRoute.shelterIntroView);
             },
             onEnter: (_) => menuItemController
-                .setCurrentHoveringRoute(PRoute.shelterIntroScreen),
+                .setCurrentHoveringRoute(PRoute.shelterIntroView),
             onExit: (_) => menuItemController
                 .setCurrentHoveringRoute(""),
             title: "Trung tâm cứu trợ",
             paddingAll: 0.0,
             height: 50,
             width: 300,
-            backgroundColor: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroScreen)
+            backgroundColor: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroView)
                 ? PConstant.white
-                : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen)
+                : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroView)
                 ? PConstant.white
                 : PConstant.transparent,
-            textSize: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroScreen)
+            textSize: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroView)
                 ? 17
-                : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen)
+                : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroView)
                 ? 15
                 : 13,
-            textColor: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroScreen)
+            textColor: menuItemController.getIsMenuItemHovering(PRoute.shelterIntroView)
                 ? PConstant.orangeAccent
-                : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroScreen)
+                : menuItemController.getIsMenuItemSelected(PRoute.shelterIntroView)
                 ? PConstant.orangeAccent
                 : PConstant.white,),
 
@@ -93,29 +93,29 @@ class PSideBar extends StatelessWidget {
 
           PMenuItem(
             onTap: () {
-              Get.toNamed(PRoute.contractScreen);
+              Get.toNamed(PRoute.contractView);
             },
             onEnter: (_) => menuItemController
-                .setCurrentHoveringRoute(PRoute.contractScreen),
+                .setCurrentHoveringRoute(PRoute.contractView),
             onExit: (_) => menuItemController
                 .setCurrentHoveringRoute(""),
             title: "Liên hệ",
             paddingAll: 0.0,
             height: 50,
             width: 300,
-            backgroundColor: menuItemController.getIsMenuItemHovering(PRoute.contractScreen)
+            backgroundColor: menuItemController.getIsMenuItemHovering(PRoute.contractView)
                 ? PConstant.white
-                : menuItemController.getIsMenuItemSelected(PRoute.contractScreen)
+                : menuItemController.getIsMenuItemSelected(PRoute.contractView)
                 ? PConstant.white
                 : PConstant.transparent,
-            textSize: menuItemController.getIsMenuItemHovering(PRoute.contractScreen)
+            textSize: menuItemController.getIsMenuItemHovering(PRoute.contractView)
                 ? 17
-                : menuItemController.getIsMenuItemSelected(PRoute.contractScreen)
+                : menuItemController.getIsMenuItemSelected(PRoute.contractView)
                 ? 15
                 : 13,
-            textColor: menuItemController.getIsMenuItemHovering(PRoute.contractScreen)
+            textColor: menuItemController.getIsMenuItemHovering(PRoute.contractView)
                 ? PConstant.orangeAccent
-                : menuItemController.getIsMenuItemSelected(PRoute.contractScreen)
+                : menuItemController.getIsMenuItemSelected(PRoute.contractView)
                 ? PConstant.orangeAccent
                 : PConstant.white,),
 

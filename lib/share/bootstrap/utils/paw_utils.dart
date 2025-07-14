@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 
 class PObjectUtils {
   static bool isNull(Object? input) {
@@ -47,5 +48,11 @@ class PResponseStatusUtils {
     }
 
     return response.statusCode! >= 200 && response.statusCode! <= 299;
+  }
+}
+
+class PWidgetUtils {
+  static Widget chooseWithCondition(bool condition, Widget first, Widget two) {
+    return condition ? first : two;
   }
 }
