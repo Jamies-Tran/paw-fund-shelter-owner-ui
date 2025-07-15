@@ -5,7 +5,10 @@ import 'package:paw_fund_shelter_owner/screens/account_registration/repository/a
 import 'package:paw_fund_shelter_owner/screens/account_registration/repository/api/register/registration_api.dart';
 import 'package:paw_fund_shelter_owner/screens/medias/repository/firebase/media_firebase.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
+import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/route/routes.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
+import 'package:paw_fund_shelter_owner/share/constans/handle_response/handle_response.dart';
+import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
 
 class RegistrationController extends GetxController {
 
@@ -297,7 +300,12 @@ class RegistrationController extends GetxController {
           password: _passwordController.value.text
       );
 
-      await _registrationApi.register(account);
+      ValueResponse valueResponse = await _registrationApi.register(account);
+      if (PResponseStatusUtils.isSuccess(valueResponse)) {
+        int accountId = valueResponse.data;
+        Get.toNamed(PRoute.sendingVerificationView, arguments: {accountId});
+      }
+
     } finally {
       _isPending.value = false;
       clearAllText();

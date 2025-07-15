@@ -49,7 +49,7 @@ class ValueResponse {
 
   factory ValueResponse.fromJson(Map<String, dynamic> json) {
     return ValueResponse(
-      data: json['model'],
+      data: json['data'],
       status: json['status'],
       success: json['success'],
       errorCode: json['errorCode'],

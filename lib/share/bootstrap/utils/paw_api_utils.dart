@@ -44,7 +44,13 @@ class PApiUtils {
     ));
   }
 
-  Future<Response> doPost(String endpoint, dynamic json) async {
-      return await _dio.post(endpoint, data: json);
+  Future<ValueResponse> doPost(String endpoint, dynamic json) async {
+      Response response = await _dio.post(endpoint, data: json);
+      return ValueResponse.fromJson(response.data);
+  }
+
+  Future<ValueResponse> doGet(String endPoint, Map<String, String> queryParams) async {
+    Response response = await _dio.get(endPoint, queryParameters: queryParams);
+    return ValueResponse.fromJson(response.data);
   }
 }

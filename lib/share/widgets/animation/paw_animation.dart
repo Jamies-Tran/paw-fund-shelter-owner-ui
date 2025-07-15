@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 
 class PAnimation extends StatefulWidget {
   const PAnimation({
@@ -7,13 +8,19 @@ class PAnimation extends StatefulWidget {
     required this.child,
 
     required this.beginAnimate,
-    required this.endAnimate
+    required this.endAnimate,
+
+    this.duration,
+    this.reverseDuration
   });
 
   final Widget child;
 
   final double beginAnimate;
   final double endAnimate;
+
+  final Duration? duration;
+  final Duration? reverseDuration;
 
   @override
   State<PAnimation> createState() => _PAnimationState();
@@ -28,8 +35,10 @@ class _PAnimationState extends State<PAnimation> with SingleTickerProviderStateM
     super.initState();
     _controller = AnimationController(
         vsync: this,
-        duration: Duration(seconds: 1),
-        reverseDuration: Duration(seconds: 1)
+        duration: PObjectUtils.requiredNonNullOrElse(
+            Duration(seconds: 1), widget.duration),
+        reverseDuration: PObjectUtils.requiredNonNullOrElse(
+            Duration(seconds: 1), widget.reverseDuration)
     );
 
     _animation = Tween<double>(begin: widget.beginAnimate, end: widget.endAnimate)

@@ -3,7 +3,7 @@ library env;
 
 import 'package:js/js.dart';
 
-@JS()
+@JS('FIREBASE_API_KEY')
 external String get FIREBASE_API_KEY;
 
 @JS()
@@ -35,3 +35,21 @@ external String get LOGO;
 
 @JS()
 external String get LOGO_NO_BRAND;
+
+@JS()
+external String get PAW_REGISTRATION_LOCAL;
+
+@JS()
+external String get PAW_ACCOUNT_PUB;
+
+@JS()
+external String get PAW_ACCOUNT_PUB_LOCAL;
+
+@JS()
+external String get PAW_ACCOUNT;
+
+@JS()
+external String get PAW_ACCOUNT_LOCAL;
+
+@JS()
+external String get PAW_LOGIN;

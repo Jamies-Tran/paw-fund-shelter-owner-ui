@@ -55,8 +55,9 @@ class _DesktopViewState extends State<DesktopView> {
             vertical: 31.5,
           ),
           child: PAnimation(
-            beginAnimate: 0.75,
+            beginAnimate: 0.5,
             endAnimate: 1.0,
+            duration: Duration(seconds: 1),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -431,10 +432,11 @@ class _DesktopViewState extends State<DesktopView> {
                         PConstant.hDistance20,
                         
                         controller.getIsDataValidated() == true
-                            ? SizedBox(
+                            ? PImage(
+                                url: LOGO_NO_BRAND,
+                                imageType: EImageType.asset,
                                 width: MediaQuery.of(context).size.width * 0.275,
-                                height: MediaQuery.of(context).size.height * 0.165,
-                                child: PImage(url: LOGO_NO_BRAND, imageType: EImageType.asset))
+                                height: MediaQuery.of(context).size.height * 0.165,)
                             : Container()
                       ],
                     ),

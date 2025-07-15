@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:paw_fund_shelter_owner/share/constans/handle_response/handle_response.dart';
 
 class PObjectUtils {
   static bool isNull(Object? input) {
@@ -42,12 +43,12 @@ class PStringUtils {
 }
 
 class PResponseStatusUtils {
-  static bool isSuccess(Response response) {
-    if (response.statusCode == null) {
+  static bool isSuccess(ValueResponse? response) {
+    if (response == null) {
       return false;
     }
 
-    return response.statusCode! >= 200 && response.statusCode! <= 299;
+    return response.success!;
   }
 }
 

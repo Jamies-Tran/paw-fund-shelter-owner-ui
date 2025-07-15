@@ -14,10 +14,18 @@ window.env = {
     LOGO_NO_BRAND: "paw_logo_xoa_nen.png",
 
     // api
-    //PAW_DOMAIN: "https://pawfund-core-service-2e6d01c7cb49.herokuapp.com"
-    PAW_DOMAIN: "http://localhost:8080"
+    PAW_DOMAIN: "https://pawfund-core-service-2e6d01c7cb49.herokuapp.com",
+
+    PAW_DOMAIN_LOCAL: "http://localhost:8080",
 };
 
 window.env.PAW_REGISTRATION = `${window.env.PAW_DOMAIN}/v1/pub/account/shelter-owner`;
+window.env.PAW_REGISTRATION_LOCAL = `${window.env.PAW_DOMAIN_LOCAL}/v1/pub/account/shelter-owner`;
+
+window.env.PAW_ACCOUNT_PUB = `${window.env.PAW_DOMAIN}/v1/pub/account`;
+window.env.PAW_ACCOUNT_PUB_LOCAL = `${window.env.PAW_DOMAIN_LOCAL}/v1/pub/account`;
+
+window.env.PAW_ACCOUNT = `${window.env.PAW_DOMAIN}/v1/api/account`;
+window.env.PAW_ACCOUNT_LOCAL = `${window.env.PAW_DOMAIN_LOCAL}/v1/api/account`;
 
 window.env.PAW_LOGIN = `${window.env.PAW_DOMAIN}/v1/pub/auth`;
