@@ -29,3 +29,9 @@ external String get FIREBASE_MEASUREMENT_ID;
 
 @JS()
 external String get PAW_REGISTRATION;
+
+@JS()
+external String get LOGO;
+
+@JS()
+external String get LOGO_NO_BRAND;

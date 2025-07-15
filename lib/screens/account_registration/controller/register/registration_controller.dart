@@ -3,9 +3,26 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/repository/api/register/model/registration_model.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/repository/api/register/registration_api.dart';
+import 'package:paw_fund_shelter_owner/screens/medias/repository/firebase/media_firebase.dart';
+import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 
 class RegistrationController extends GetxController {
+
+  final Rx<String> _logoRegisterUrl = "".obs;
+  final Rx<bool> _isLogoRegPending = true.obs;
+
+  void setLogoRegisterUrl(String url) {
+    _logoRegisterUrl.value = url;
+  }
+
+  String getLogoRegisterUrl() {
+    return _logoRegisterUrl.value;
+  }
+
+  bool getIsLogoRegPending() {
+    return _isLogoRegPending.value;
+  }
 
   final Rx<TextEditingController> _firstNameController = TextEditingController().obs;
   final Rx<bool> _isFirstNameHover = false.obs;
@@ -254,8 +271,16 @@ class RegistrationController extends GetxController {
     _phoneController.value.clear();
   }
 
-  final IRegistrationApi _registrationApi = Get.find();
+  late IRegistrationApi _registrationApi;
 
+  late IMediaFirebase _mediaFirebase;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _registrationApi = Get.find();
+    _mediaFirebase = Get.find();
+  }
 
   Future<void> register() async {
     try {
@@ -276,6 +301,18 @@ class RegistrationController extends GetxController {
     } finally {
       _isPending.value = false;
       clearAllText();
+    }
+  }
+
+  Future<void> getImageUrl(String path) async {
+    try {
+      _isLogoRegPending.value = true;
+      String url = await _mediaFirebase.getUrl(path);
+      _logoRegisterUrl.value = url;
+    } catch (e) {
+      print(e);
+    } finally {
+      _isLogoRegPending.value = false;
     }
   }
 }

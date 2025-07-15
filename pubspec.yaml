@@ -33,6 +33,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/test1.jpg
+    - assets/logo_chua_xoa_nen_2.png
+    - assets/paw_logo_xoa_nen.png
     - assets/dog.jpg
     - assets/sua.jpg

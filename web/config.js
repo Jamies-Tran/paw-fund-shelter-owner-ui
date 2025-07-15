@@ -9,6 +9,10 @@ window.env = {
     FIREBASE_APP_ID: "1:557539940447:web:cea505d424c820a41ea3ea",
     FIREBASE_MEASUREMENT_ID: "G-CZZR22EX5J",
 
+    // image from assets
+    LOGO: "logo_chua_xoa_nen_2.png",
+    LOGO_NO_BRAND: "paw_logo_xoa_nen.png",
+
     // api
     //PAW_DOMAIN: "https://pawfund-core-service-2e6d01c7cb49.herokuapp.com"
     PAW_DOMAIN: "http://localhost:8080"

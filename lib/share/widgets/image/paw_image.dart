@@ -23,14 +23,14 @@ class PImage extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (imageType) {
       case EImageType.asset:
-        return AssetImage(
+        return PAssetImage(
           assetUrl: url,
           height: height,
           width: width,
           boxFit: boxFit,
         );
       case EImageType.network :
-        return NetworkImage(
+        return PNetworkImage(
             networkUrl: url,
             width: width,
             height: height,
@@ -40,8 +40,8 @@ class PImage extends StatelessWidget {
   }
 }
 
-class AssetImage extends StatelessWidget {
-  const AssetImage({
+class PAssetImage extends StatelessWidget {
+  const PAssetImage({
     super.key,
     required this.assetUrl,
     required this.width,
@@ -65,8 +65,8 @@ class AssetImage extends StatelessWidget {
   }
 }
 
-class NetworkImage extends StatefulWidget {
-  NetworkImage({
+class PNetworkImage extends StatelessWidget {
+  const PNetworkImage({
     super.key,
     required this.networkUrl,
     required this.width,
@@ -80,58 +80,16 @@ class NetworkImage extends StatefulWidget {
   final BoxFit boxFit;
 
   @override
-  State<NetworkImage> createState() => _NetworkImageState();
-}
-
-class _NetworkImageState extends State<NetworkImage> {
-  final ImageController imageController = Get.find();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      imageController.setImageUrl(widget.networkUrl);
-    },);
-  }
-
-  @override
   Widget build(BuildContext context) {
 
 
-    return Obx(() {
-      if(imageController.getIsPending()) {
-        return SizedBox();
-      } else {
-        return Image.network(
-          imageController.getUrl(),
-          width: widget.width,
-          height: widget.height,
-          fit: widget.boxFit,
-        );
-      }
-
-    },);
+    return Image.network(
+      networkUrl,
+      width: width,
+      height: height,
+      fit: boxFit,
+    );
   }
 }
 
-class Test extends StatefulWidget {
-  const Test({super.key});
-
-
-
-  @override
-  State<Test> createState() => _TestState();
-}
-
-class _TestState extends State<Test> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
 

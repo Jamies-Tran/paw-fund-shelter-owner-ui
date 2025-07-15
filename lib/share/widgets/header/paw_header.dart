@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/route/routes.dart';
 import 'package:paw_fund_shelter_owner/share/constans/enums/paw_enums.dart';
 import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
-import 'package:paw_fund_shelter_owner/share/constans/route/routes.dart';
 import 'package:paw_fund_shelter_owner/share/controller/header/paw_item_menu_controller.dart';
 import 'package:paw_fund_shelter_owner/share/responsive_design/responsive_design.dart';
-import 'package:paw_fund_shelter_owner/share/widgets/button/paw_button.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/image/paw_image.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/items/paw_menu_items.dart';
-import 'package:paw_fund_shelter_owner/share/widgets/items/paw_sidebar_item.dart';
+import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
 
 class PHeader extends StatelessWidget implements PreferredSizeWidget {
   const PHeader({
@@ -70,8 +69,8 @@ class PDesktopLayoutV1 extends StatelessWidget {
           Expanded(
             flex: 4,
             child: PImage(
-              url: PConstant.pawFundLogo,
-              imageType: EImageType.network,
+              url: LOGO,
+              imageType: EImageType.asset,
               width: 150,
               height: 150,
               boxFit: BoxFit.fitWidth,
