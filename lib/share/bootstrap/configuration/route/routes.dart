@@ -5,4 +5,5 @@ class PRoute {
   static const String loginView = "/login";
   static const String registrationView = "/register";
   static const String sendingVerificationView = "/sending-verification";
+  static const String accountVerificationView = "/account-verification";
 }

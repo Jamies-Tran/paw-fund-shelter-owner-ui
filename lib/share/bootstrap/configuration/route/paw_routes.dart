@@ -1,13 +1,14 @@
 import 'package:get/get.dart';
-import 'package:paw_fund_shelter_owner/screens/account_registration/%20views/registration/registration_view.dart';
-import 'package:paw_fund_shelter_owner/screens/account_registration/%20views/varification/sending_verification_view.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/controller/register/registration_controller.dart';
+import 'package:paw_fund_shelter_owner/screens/account_registration/controller/verification/account_verification_controller.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/controller/verification/sending_verification_controller.dart';
+import 'package:paw_fund_shelter_owner/screens/account_registration/views/registration/registration_view.dart';
+import 'package:paw_fund_shelter_owner/screens/account_registration/views/verification/account_verification_view.dart';
+import 'package:paw_fund_shelter_owner/screens/account_registration/views/verification/sending_verification_view.dart';
 import 'package:paw_fund_shelter_owner/screens/home/views/home.dart';
 import 'package:paw_fund_shelter_owner/screens/medias/repository/firebase/media_firebase.dart';
 import 'package:paw_fund_shelter_owner/screens/shelter_intro/views/shelter_intro_view.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/route/routes.dart';
-import 'package:paw_fund_shelter_owner/share/controller/image/paw_image_controller.dart';
 
 class PAppRoute {
   static List<GetPage> pages = [
@@ -32,16 +33,24 @@ class PAppRoute {
         page: () => RegistrationView(),
         bindings: [
           BindingsBuilder(() => Get
-              .put<RegistrationController>(RegistrationController())),
-          BindingsBuilder(() => Get
-              .put<IMediaFirebase>(MediaFirebaseImpl()))
+              .lazyPut<RegistrationController>(() => RegistrationController(),))
         ],
     ),
     GetPage(
         name: PRoute.sendingVerificationView,
         page: () => SendingVerificationView(),
-        binding: BindingsBuilder(() => Get
-            .put<SendingVerificationController>(SendingVerificationController()),)
-    )
+        bindings: [
+          BindingsBuilder(() => Get
+              .lazyPut<SendingVerificationController>(() => SendingVerificationController(),),)
+        ]
+    ),
+    GetPage(
+        name: PRoute.accountVerificationView,
+        page: () => AccountVerificationView(),
+        bindings: [
+          BindingsBuilder(() => Get
+              .lazyPut<AccountVerificationController>(() => AccountVerificationController(),),)
+        ]
+    ),
   ];
 }

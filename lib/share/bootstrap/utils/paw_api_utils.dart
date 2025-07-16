@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/handle_response/handle_response.dart';
 
 class PApiUtils {
@@ -35,9 +36,12 @@ class PApiUtils {
           },
 
           onError: (error, handler) {
-            ValueResponse valueResponse = ValueResponse
-                .fromJson(error.response?.data);
-            HandleResponse.onError(valueResponse.message);
+            if(PObjectUtils.isNotNull(error.response)) {
+              ValueResponse valueResponse = ValueResponse
+                  .fromJson(error.response?.data);
+              HandleResponse.onError(valueResponse.message);
+            }
+            HandleResponse.onError("Có lỗi xảy ra! xin vui lòng liên hệ để xử lý");
 
             handler.next(error);
           },
@@ -45,8 +49,8 @@ class PApiUtils {
   }
 
   Future<ValueResponse> doPost(String endpoint, dynamic json) async {
-      Response response = await _dio.post(endpoint, data: json);
-      return ValueResponse.fromJson(response.data);
+    Response response = await _dio.post(endpoint, data: json);
+    return ValueResponse.fromJson(response.data);
   }
 
   Future<ValueResponse> doGet(String endPoint, Map<String, String> queryParams) async {

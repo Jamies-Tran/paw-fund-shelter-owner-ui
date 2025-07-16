@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
@@ -229,11 +230,15 @@ class PDateRangePicker extends StatefulWidget {
     this.initialSelectDate,
     this.initialSelectDates,
     this.initialSelectDateRange,
+    this.showTodayButton,
+    this.showActionButtons,
+    this.dateRangePickerView,
+    this.minDate,
+    this.maxDate,
 
     this.validate,
     this.onChanged,
-    this.onEditingComplete,
-    this.onTapOutside
+    this.onSelectionChanged
   });
 
   final bool? enable;
@@ -261,6 +266,9 @@ class PDateRangePicker extends StatefulWidget {
   final double? focusBorderRadius;
   final double? width;
   final TextInputType? textInputType;
+  final bool? showActionButtons;
+  final DateRangePickerView? dateRangePickerView;
+  final bool? showTodayButton;
 
   final Color? backgroundColor;
   final Color? selectionColor;
@@ -268,11 +276,12 @@ class PDateRangePicker extends StatefulWidget {
   final DateTime? initialSelectDate;
   final List<DateTime>? initialSelectDates;
   final List<PickerDateRange>? initialSelectDateRange;
-
+  final DateTime? minDate;
+  final DateTime? maxDate;
+  
   final FormFieldValidator<String>? validate;
   final ValueChanged<String>? onChanged;
-  final VoidCallback? onEditingComplete;
-  final ValueChanged<PointerDownEvent>? onTapOutside;
+  final ValueChanged<DateRangePickerSelectionChangedArgs>? onSelectionChanged;
 
   @override
   State<PDateRangePicker> createState() => _PDateRangePickerState();
@@ -281,14 +290,15 @@ class PDateRangePicker extends StatefulWidget {
 class _PDateRangePickerState extends State<PDateRangePicker> {
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
-
+  
+  
   void _closeDateRangePicker() {
     _overlayEntry?.remove();
     _overlayEntry = null;
   }
 
   void _showDateRangePicker() {
-
+    DateTime minDate = PObjectUtils.requiredNonNullOrElse(widget.minDate, DateTime.now());
     _overlayEntry = OverlayEntry(
       builder: (context) {
         return Positioned(
@@ -313,12 +323,16 @@ class _PDateRangePickerState extends State<PDateRangePicker> {
                     .requiredNonNullOrElse(widget.initialSelectDates, []),
                 initialSelectedRanges: PObjectUtils
                     .requiredNonNullOrElse(widget.initialSelectDateRange, []),
-                onSelectionChanged: (value) {
-
-                  widget.controller!.text = value.value.toString().substring(0, 10);
-                  _closeDateRangePicker();
-                },
-
+                onSelectionChanged: widget.onSelectionChanged,
+                onSubmit: (p0) => _closeDateRangePicker(),
+                showActionButtons: PObjectUtils
+                    .requiredNonNullOrElse(widget.showActionButtons, true),
+                view: PObjectUtils
+                    .requiredNonNullOrElse(widget.dateRangePickerView, DateRangePickerView.year),
+                showTodayButton: PObjectUtils
+                    .requiredNonNullOrElse(widget.showActionButtons, true),
+                maxDate: widget.maxDate,
+                minDate: widget.minDate,
               ),
             ),
           ),
@@ -399,8 +413,6 @@ class _PDateRangePickerState extends State<PDateRangePicker> {
             ),
           ),
           validator: widget.validate,
-          onChanged: widget.onChanged,
-
           onTap: () {
             if (PObjectUtils.isNull(_overlayEntry)) {
               _showDateRangePicker();
@@ -408,7 +420,6 @@ class _PDateRangePickerState extends State<PDateRangePicker> {
               _closeDateRangePicker();
             }
           },
-          onTapOutside: widget.onTapOutside,
         ),
       ),
     );

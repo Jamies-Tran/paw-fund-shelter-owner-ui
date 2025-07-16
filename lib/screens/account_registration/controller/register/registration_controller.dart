@@ -12,6 +12,7 @@ import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
 
 class RegistrationController extends GetxController {
 
+  // logo đặt dưới nút đăng ký
   final Rx<String> _logoRegisterUrl = "".obs;
   final Rx<bool> _isLogoRegPending = true.obs;
 
@@ -27,8 +28,10 @@ class RegistrationController extends GetxController {
     return _isLogoRegPending.value;
   }
 
+  // họ
   final Rx<TextEditingController> _firstNameController = TextEditingController().obs;
   final Rx<bool> _isFirstNameHover = false.obs;
+  final Rx<bool> _isFirstNameValidate = false.obs;
 
   TextEditingController getFirstNameController() {
     return _firstNameController.value;
@@ -56,8 +59,18 @@ class RegistrationController extends GetxController {
     return PStringUtils.isNotEmpty(_firstNameController.value.text);
   }
 
+  bool getIsFirstNameValidate() {
+    return _isFirstNameValidate.value;
+  }
+
+  void setIsFirstNameValidate(bool validate) {
+    _isFirstNameValidate.value = validate;
+  }
+
+  // tên
   final Rx<TextEditingController> _lastNameController = TextEditingController().obs;
   final Rx<bool> _isLastNameHover = false.obs;
+  final Rx<bool> _isLastNameValidate = false.obs;
 
   TextEditingController getLastNameController() {
     return _lastNameController.value;
@@ -85,12 +98,25 @@ class RegistrationController extends GetxController {
     return PStringUtils.isNotEmpty(_lastNameController.value.text);
   }
 
+  bool getIsLastNameValidate() {
+    return _isLastNameValidate.value;
+  }
 
+  void setIsLastNameValidate(bool validate) {
+    _isLastNameValidate.value = validate;
+  }
+
+  // ngày sinh
   final Rx<TextEditingController> _birthdayController = TextEditingController().obs;
   final Rx<bool> _isBirthdayHover = false.obs;
+  final Rx<bool> _isBirthdayValidate = false.obs;
 
   TextEditingController getBirthdayController() {
     return _birthdayController.value;
+  }
+
+  void setBirthdayControllerText(String text) {
+    _birthdayController.value.text = text;
   }
 
   void clearBirthdayText() {
@@ -115,9 +141,18 @@ class RegistrationController extends GetxController {
     return PStringUtils.isNotEmpty(_birthdayController.value.text);
   }
 
+  bool getIsBirthdayValidate() {
+    return _isBirthdayValidate.value;
+  }
 
+  void setIsBirthdayValidate() {
+    _isBirthdayValidate.value = PStringUtils.isNotEmpty(_birthdayController.value.text);
+  }
+
+  // email
   final Rx<TextEditingController> _emailController = TextEditingController().obs;
   final Rx<bool> _isEmailHover = false.obs;
+  final Rx<bool> _isEmailValidate = false.obs;
 
   TextEditingController getEmailController() {
     return _emailController.value;
@@ -145,9 +180,19 @@ class RegistrationController extends GetxController {
     return PStringUtils.isNotEmpty(_emailController.value.text);
   }
 
+  bool getIsEmailValidate() {
+    return _isEmailValidate.value;
+  }
 
+  void setIsEmailValidate(bool validate) {
+    _isEmailValidate.value = validate;
+  }
+
+
+  // số điện thoại
   final Rx<TextEditingController> _phoneController = TextEditingController().obs;
   final Rx<bool> _isPhoneHover = false.obs;
+  final Rx<bool> _isPhoneValidate = false.obs;
 
   TextEditingController getPhoneController() {
     return _phoneController.value;
@@ -175,9 +220,18 @@ class RegistrationController extends GetxController {
     return PStringUtils.isNotEmpty(_phoneController.value.text);
   }
 
+  bool getIsPhoneValidate() {
+    return _isPhoneValidate.value;
+  }
 
+  void setIsPhoneValidate(bool validate) {
+    _isPhoneValidate.value = validate;
+  }
+
+  // mật khẩu
   final Rx<TextEditingController> _passwordController = TextEditingController().obs;
   final Rx<bool> _isPasswordHover = false.obs;
+  final Rx<bool> _isPasswordValidate = false.obs;
 
   TextEditingController getPasswordController() {
     return _passwordController.value;
@@ -205,9 +259,19 @@ class RegistrationController extends GetxController {
     return PStringUtils.isNotEmpty(_passwordController.value.text);
   }
 
+  bool getIsPasswordValidate() {
+    return _isPasswordValidate.value;
+  }
 
+  void setIsPasswordValidate(bool validate) {
+    _isPasswordValidate.value = validate;
+  }
+
+
+  // xác nhận mật khẩu
   final Rx<TextEditingController> _rePasswordController = TextEditingController().obs;
   final Rx<bool> _isRePasswordHover = false.obs;
+  final Rx<bool> _isRePasswordValidate = false.obs;
 
   TextEditingController getRePasswordController() {
     return _rePasswordController.value;
@@ -236,29 +300,44 @@ class RegistrationController extends GetxController {
     return PStringUtils.isNotEmpty(_rePasswordController.value.text);
   }
 
+  bool getIsRePasswordValidate() {
+    return _isRePasswordValidate.value;
+  }
+
+  bool getIsRePasswordMatch() {
+    return PObjectUtils
+        .isEquals(_passwordController.value.text, _rePasswordController.value.text);
+  }
+
+  void setIsRePasswordValidate(bool validate) {
+    _isRePasswordValidate.value = validate;
+  }
+
+
+  // đang call api service
   final Rx<bool> _isPending = false.obs;
 
   bool getIsPending() {
     return _isPending.value;
   }
 
-  final Rx<bool> _isDataValidated = true.obs;
+  // validate dữ liệu
 
-  void setIsDataValidated(bool isDataValidated) {
-    _isDataValidated.value = isDataValidated;
-  }
 
   bool getIsDataValidated() {
-    return _isDataValidated.value;
-  }
 
+    return _isEmailValidate.value
+        && _isPasswordValidate.value
+        && _isBirthdayValidate.value
+        && getIsRePasswordMatch()
+        && _isFirstNameValidate.value
+        && _isLastNameValidate.value
+        && _isBirthdayValidate.value
+        && _isPhoneValidate.value;
+  }
 
   final Rx<bool> _isPassValidated = true.obs;
 
-  void setValidatePass() {
-    _isPassValidated.value = PObjectUtils.isEquals(_passwordController.value.text, _rePasswordController.value.text);
-    _isDataValidated.value = PObjectUtils.isEquals(_passwordController.value.text, _rePasswordController.value.text);
-  }
 
   bool getIsPassValidated() {
     return _isPassValidated.value;
@@ -276,13 +355,10 @@ class RegistrationController extends GetxController {
 
   late IRegistrationApi _registrationApi;
 
-  late IMediaFirebase _mediaFirebase;
-
   @override
   void onInit() {
     super.onInit();
     _registrationApi = Get.find();
-    _mediaFirebase = Get.find();
   }
 
   Future<void> register() async {
@@ -309,18 +385,6 @@ class RegistrationController extends GetxController {
     } finally {
       _isPending.value = false;
       clearAllText();
-    }
-  }
-
-  Future<void> getImageUrl(String path) async {
-    try {
-      _isLogoRegPending.value = true;
-      String url = await _mediaFirebase.getUrl(path);
-      _logoRegisterUrl.value = url;
-    } catch (e) {
-      print(e);
-    } finally {
-      _isLogoRegPending.value = false;
     }
   }
 }

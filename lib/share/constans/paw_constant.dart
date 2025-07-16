@@ -10,6 +10,8 @@ class PConstant {
   static const SizedBox hDistance20 = SizedBox(height: 20,);
   static const SizedBox hDistance30 = SizedBox(height: 30,);
   static const SizedBox hDistance50 = SizedBox(height: 50,);
+  static const SizedBox hDistance60 = SizedBox(height: 60,);
+  static const SizedBox hDistance80 = SizedBox(height: 80,);
   static const SizedBox hDistance100 = SizedBox(height: 100,);
   static const SizedBox hDistance150 = SizedBox(height: 150,);
   static const SizedBox hDistance200 = SizedBox(height: 200,);

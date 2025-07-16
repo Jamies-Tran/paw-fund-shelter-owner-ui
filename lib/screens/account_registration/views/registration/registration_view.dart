@@ -134,11 +134,11 @@ class _DesktopViewState extends State<DesktopView> {
                           onChanged: (value) {
                             bool isValid = PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
                               && PStringUtils.isNotEmpty(value);
-                            controller.setIsDataValidated(isValid);
+                            controller.setIsEmailValidate(isValid);
                           },
                         ),
                 
-                        PConstant.hDistance10,
+                        PConstant.hDistance15,
                 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -174,7 +174,7 @@ class _DesktopViewState extends State<DesktopView> {
                               onTapOutside: (_) => controller
                                   .setIsPasswordHover(false),
                               onChanged: (value) => controller
-                                  .setIsDataValidated(PStringUtils.isNotEmpty(value)),
+                                  .setIsPasswordValidate(PStringUtils.isNotEmpty(value)),
                             ),
                 
                             PConstant.vDistance5,
@@ -204,7 +204,7 @@ class _DesktopViewState extends State<DesktopView> {
                                   return "Vui lòng nhập lại mật khẩu";
                                 }
                 
-                                if (!controller.getIsPassValidated()) {
+                                if (!controller.getIsRePasswordMatch()) {
                                   return "Mật khẩu không khớp";
                                 }
                 
@@ -214,15 +214,53 @@ class _DesktopViewState extends State<DesktopView> {
                               onTapOutside: (_) => controller
                                      .setIsRePasswordHover(false),
                               onChanged: (value) {
-                                controller.setValidatePass();
+                                controller
+                                    .setIsRePasswordValidate(PStringUtils.isNotEmpty(value));
                               },
                 
                             ),
                           ],
                         ),
-                
-                        PConstant.hDistance30,
-                
+
+                        PConstant.hDistance50,
+
+                        PDateRangePicker(
+                          width: MediaQuery.of(context).size.width * 0.265,
+                          enable: !controller.getIsPending(),
+                          controller: controller.getBirthdayController(),
+                          selectionColor: Colors.orangeAccent,
+                          backgroundColor: Colors.white,
+                          textInputType: TextInputType.emailAddress,
+                          labelText: "Ngày sinh",
+                          hintText: "Chọn ngày sinh của bạn",
+                          suffixIcon: PIcon(
+                            iconData: Icons.cake,
+                            iconButtonData: Icons.clear,
+                            isButton: controller.getIsBirthdayEditing(),
+                            onPress: () => controller.clearBirthdayText(),
+                            color: controller.getIsBirthdayHover()
+                                ? Colors.orangeAccent
+                                : Colors.black,
+                          ),
+                          enableBorderColor: Color(Colors.black.toARGB32()),
+                          focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
+                          enableBorderRadius: 10,
+                          validate: (value) {
+                            if (PStringUtils.isEmpty(value)) {
+                              return "Vui lòng nhập ngày sinh của bạn";
+                            }
+
+                            return null;
+                          },
+                          onSelectionChanged: (value) {
+                            controller.setBirthdayControllerText(value.value.toString().substring(0, 10));
+                            controller.setIsBirthdayValidate();
+                          },
+                          maxDate: DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day),
+                        ),
+
+                        PConstant.hDistance15,
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -256,7 +294,7 @@ class _DesktopViewState extends State<DesktopView> {
                               onTapOutside: (_) => controller
                                   .setIsFirstNameHover(false),
                               onChanged: (value) {
-                                controller.setIsDataValidated(PStringUtils
+                                controller.setIsFirstNameValidate(PStringUtils
                                     .isNotEmpty(value));
                               },
                 
@@ -293,50 +331,14 @@ class _DesktopViewState extends State<DesktopView> {
                               onTapOutside: (_) => controller
                                   .setIsLastNameHover(false),
                               onChanged: (value) {
-                                controller.setIsDataValidated(PStringUtils
+                                controller.setIsLastNameValidate(PStringUtils
                                     .isNotEmpty(value));
                               },
                             )
                           ],
                         ),
                 
-                        PConstant.hDistance10,
-                
-                        PDateRangePicker(
-                          width: MediaQuery.of(context).size.width * 0.265,
-                          enable: !controller.getIsPending(),
-                          controller: controller.getBirthdayController(),
-                          selectionColor: Colors.orangeAccent,
-                          backgroundColor: Colors.white,
-                          textInputType: TextInputType.emailAddress,
-                          labelText: "Ngày sinh",
-                          hintText: "Chọn ngày sinh của bạn",
-                          suffixIcon: PIcon(
-                            iconData: Icons.cake,
-                            iconButtonData: Icons.clear,
-                            isButton: controller.getIsBirthdayEditing(),
-                            onPress: () => controller.clearBirthdayText(),
-                            color: controller.getIsBirthdayHover()
-                                ? Colors.orangeAccent
-                                : Colors.black,
-                          ),
-                          enableBorderColor: Color(Colors.black.toARGB32()),
-                          focusBorderColor: Color(Colors.orangeAccent.toARGB32()),
-                          enableBorderRadius: 10,
-                          validate: (value) {
-                            if (PStringUtils.isEmpty(value)) {
-                              return "Vui lòng nhập ngày sinh của bạn";
-                            }
-                
-                            return null;
-                          },
-                          onTapOutside: (_) => controller.setIsBirthdayHover(false),
-                          onChanged: (value) {
-                            controller.setIsDataValidated(PStringUtils.isNotEmpty(value));
-                          },
-                        ),
-                
-                        PConstant.hDistance10,
+                        PConstant.hDistance15,
                 
                         PTextFormField(
                             width: MediaQuery.of(context).size.width * 0.265,
@@ -375,13 +377,12 @@ class _DesktopViewState extends State<DesktopView> {
                                 .setIsPhoneHover(false),
                             onChanged: (value) {
                               bool isValidated = PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))
-                
                                   && PStringUtils.isNotEmpty(value);
-                              controller.setIsDataValidated(isValidated);
+                              controller.setIsPhoneValidate(isValidated);
                             }
                         ),
                 
-                        PConstant.hDistance30 ,
+                        PConstant.hDistance50,
                 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -419,25 +420,13 @@ class _DesktopViewState extends State<DesktopView> {
                               ? Color(Colors.green.toARGB32())
                               : Color(Colors.grey.toARGB32()),
                           onPress:() {
-                            if (formKey.currentState!.validate()) {
+                            if (controller.getIsDataValidated() && formKey.currentState!.validate()) {
                               controller.register();
-                            } else {
-                              controller.setIsDataValidated(false);
                             }
                 
                           },
                 
                         ),
-                
-                        PConstant.hDistance20,
-                        
-                        controller.getIsDataValidated() == true
-                            ? PImage(
-                                url: LOGO_NO_BRAND,
-                                imageType: EImageType.asset,
-                                width: MediaQuery.of(context).size.width * 0.275,
-                                height: MediaQuery.of(context).size.height * 0.165,)
-                            : Container()
                       ],
                     ),
                   ),
@@ -530,7 +519,7 @@ class _TabletViewState extends State<TabletView> {
                       onChanged: (value) {
                         bool isValid = PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
                             && PStringUtils.isNotEmpty(value);
-                        controller.setIsDataValidated(isValid);
+                        controller.setIsEmailValidate(isValid);
                       },
                     ),
 
@@ -569,7 +558,7 @@ class _TabletViewState extends State<TabletView> {
                           onTapOutside: (_) => controller
                               .setIsPasswordHover(false),
                           onChanged: (value) => controller
-                              .setIsDataValidated(PStringUtils.isNotEmpty(value)),
+                              .setIsPasswordValidate(PStringUtils.isNotEmpty(value)),
                         ),
 
                         PConstant.vDistance5,
@@ -598,7 +587,7 @@ class _TabletViewState extends State<TabletView> {
                               return "Vui lòng nhập lại mật khẩu";
                             }
 
-                            if (!controller.getIsPassValidated()) {
+                            if (!controller.getIsRePasswordMatch()) {
                               return "Mật khẩu không khớp";
                             }
 
@@ -608,14 +597,12 @@ class _TabletViewState extends State<TabletView> {
                           onTapOutside: (_) => controller
                               .setIsRePasswordHover(false),
                           onChanged: (value) {
-                            controller.setValidatePass();
+                            controller.setIsRePasswordValidate(PStringUtils.isNotEmpty(value));
                           },
 
                         ),
                       ],
                     ),
-
-                    PConstant.hDistance30,
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -649,7 +636,7 @@ class _TabletViewState extends State<TabletView> {
                           onTapOutside: (_) => controller
                               .setIsFirstNameHover(false),
                           onChanged: (value) {
-                            controller.setIsDataValidated(PStringUtils
+                            controller.setIsFirstNameValidate(PStringUtils
                                 .isNotEmpty(value));
                           },
 
@@ -685,7 +672,7 @@ class _TabletViewState extends State<TabletView> {
                           onTapOutside: (_) => controller
                               .setIsLastNameHover(false),
                           onChanged: (value) {
-                            controller.setIsDataValidated(PStringUtils
+                            controller.setIsLastNameValidate(PStringUtils
                                 .isNotEmpty(value));
                           },
                         )
@@ -721,10 +708,6 @@ class _TabletViewState extends State<TabletView> {
                         }
 
                         return null;
-                      },
-                      onTapOutside: (_) => controller.setIsBirthdayHover(false),
-                      onChanged: (value) {
-                        controller.setIsDataValidated(PStringUtils.isNotEmpty(value));
                       },
                     ),
 
@@ -766,7 +749,7 @@ class _TabletViewState extends State<TabletView> {
                         onChanged: (value) {
                           bool isValidated = PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))
                               && PStringUtils.isNotEmpty(value);
-                          controller.setIsDataValidated(isValidated);
+                          controller.setIsPhoneValidate(isValidated);
                         }
                     ),
 
@@ -904,7 +887,7 @@ class _MobileViewState extends State<MobileView> {
                       onChanged: (value) {
                         bool isValid = PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
                             && PStringUtils.isNotEmpty(value);
-                        controller.setIsDataValidated(isValid);
+                        controller.setIsEmailValidate(isValid);
                       },
                     ),
 
@@ -943,7 +926,7 @@ class _MobileViewState extends State<MobileView> {
                           onTapOutside: (_) => controller
                               .setIsPasswordHover(false),
                           onChanged: (value) => controller
-                              .setIsDataValidated(PStringUtils.isNotEmpty(value)),
+                              .setIsPasswordValidate(PStringUtils.isNotEmpty(value)),
                         ),
 
                         PConstant.vDistance5,
@@ -972,7 +955,7 @@ class _MobileViewState extends State<MobileView> {
                               return "Vui lòng nhập lại mật khẩu";
                             }
 
-                            if (!controller.getIsPassValidated()) {
+                            if (!controller.getIsRePasswordMatch()) {
                               return "Mật khẩu không khớp";
                             }
 
@@ -982,7 +965,7 @@ class _MobileViewState extends State<MobileView> {
                           onTapOutside: (_) => controller
                               .setIsRePasswordHover(false),
                           onChanged: (value) {
-                            controller.setValidatePass();
+                            controller.setIsRePasswordValidate(PStringUtils.isNotEmpty(value));
                           },
 
                         ),
@@ -1023,7 +1006,7 @@ class _MobileViewState extends State<MobileView> {
                           onTapOutside: (_) => controller
                               .setIsFirstNameHover(false),
                           onChanged: (value) {
-                            controller.setIsDataValidated(PStringUtils
+                            controller.setIsFirstNameValidate(PStringUtils
                                 .isNotEmpty(value));
                           },
 
@@ -1059,7 +1042,7 @@ class _MobileViewState extends State<MobileView> {
                           onTapOutside: (_) => controller
                               .setIsLastNameHover(false),
                           onChanged: (value) {
-                            controller.setIsDataValidated(PStringUtils
+                            controller.setIsLastNameValidate(PStringUtils
                                 .isNotEmpty(value));
                           },
                         )
@@ -1095,10 +1078,6 @@ class _MobileViewState extends State<MobileView> {
                         }
 
                         return null;
-                      },
-                      onTapOutside: (_) => controller.setIsBirthdayHover(false),
-                      onChanged: (value) {
-                        controller.setIsDataValidated(PStringUtils.isNotEmpty(value));
                       },
                     ),
 
@@ -1140,7 +1119,7 @@ class _MobileViewState extends State<MobileView> {
                         onChanged: (value) {
                           bool isValidated = PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))
                               && PStringUtils.isNotEmpty(value);
-                          controller.setIsDataValidated(isValidated);
+                          controller.setIsPhoneValidate(isValidated);
                         }
                     ),
 

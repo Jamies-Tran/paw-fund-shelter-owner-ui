@@ -21,6 +21,6 @@ class RegistrationApiImpl extends IRegistrationApi {
 
   @override
   Future<ValueResponse> register(Account account) async {
-    return await _api.doPost(PAW_REGISTRATION, account.toJson());
+    return await _api.doPost(PAW_REGISTRATION_LOCAL, account.toJson());
   }
 }
