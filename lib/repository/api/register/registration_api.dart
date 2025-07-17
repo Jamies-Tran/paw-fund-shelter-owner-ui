@@ -1,11 +1,8 @@
 import 'dart:async';
 
-import 'package:get/get.dart';
-import 'package:paw_fund_shelter_owner/screens/account_registration/repository/api/register/model/registration_model.dart';
+import 'package:paw_fund_shelter_owner/repository/api/models/account/account_model.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
-import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/route/routes.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_api_utils.dart';
-import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/handle_response/handle_response.dart';
 
 abstract class IRegistrationApi {

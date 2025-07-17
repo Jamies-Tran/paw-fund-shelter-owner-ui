@@ -53,7 +53,7 @@ class PApiUtils {
     return ValueResponse.fromJson(response.data);
   }
 
-  Future<ValueResponse> doGet(String endPoint, Map<String, String> queryParams) async {
+  Future<ValueResponse> doGet(String endPoint, Map<String, String>? queryParams) async {
     Response response = await _dio.get(endPoint, queryParameters: queryParams);
     return ValueResponse.fromJson(response.data);
   }

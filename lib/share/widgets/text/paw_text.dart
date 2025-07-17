@@ -57,6 +57,7 @@ class PTextFormField extends StatelessWidget {
     this.controller,
 
     this.enable,
+    this.readOnly,
 
     required this.labelText,
     required this.hintText,
@@ -88,6 +89,7 @@ class PTextFormField extends StatelessWidget {
   final TextEditingController? controller;
 
   final bool? enable;
+  final bool? readOnly;
 
   final String labelText;
   final String hintText;
@@ -124,6 +126,7 @@ class PTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         enabled: PObjectUtils.requiredNonNullOrElse(enable, true),
+        readOnly: PObjectUtils.requiredNonNullOrElse(readOnly, false),
         obscureText: PObjectUtils.requiredNonNullOrElse(obscureText, false),
         keyboardType: PObjectUtils
             .requiredNonNullOrElse(textInputType, TextInputType.text),

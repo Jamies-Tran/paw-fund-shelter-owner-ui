@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:paw_fund_shelter_owner/share/constans/handle_response/handle_response.dart';
 
 class PObjectUtils {
@@ -55,5 +56,20 @@ class PResponseStatusUtils {
 class PWidgetUtils {
   static Widget chooseWithCondition(bool condition, Widget first, Widget two) {
     return condition ? first : two;
+  }
+}
+
+class PDateTimeUtils {
+  static String parseString(DateTime? dateTime) {
+    return dateTime != null ? dateTime.toIso8601String() : "";
+  }
+
+  static DateTime formatDateTime(String dateTime, String format) {
+    DateFormat dateFormat = DateFormat(format);
+    return dateFormat.parse(dateTime);
+  }
+
+  static DateTime parseDateTime(String dateTime) {
+    return DateTime.parse(dateTime);
   }
 }

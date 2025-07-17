@@ -1,9 +1,11 @@
+import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
+
 class Account {
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String phone;
-  final String password;
+  final String? firstName;
+  final String? lastName;
+  final String? email;
+  final String? phone;
+  final String? password;
 
   final String? avatar;
   final String? identification;
@@ -17,11 +19,11 @@ class Account {
   final List<Media>? medias;
 
   const Account({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.phone,
-    required this.password,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone,
+    this.password,
 
     this.avatar,
     this.identification,
@@ -46,7 +48,7 @@ class Account {
     "identification": identification,
     "address": address,
 
-    "dateOfBirth": dateOfBirth?.toIso8601String(),
+    "dateOfBirth": PDateTimeUtils.parseString(dateOfBirth),
 
     "genderCode": genderCode,
     "genderName": genderName,
@@ -66,11 +68,11 @@ class Account {
         identification: json['identification'],
         address: json['address'],
 
-        dateOfBirth: json['dateOfBirth'],
+        dateOfBirth: PDateTimeUtils.parseDateTime(json['dateOfBirth']),
 
         genderCode: json['genderCode'],
         genderName: json['genderName'],
-      
+
         medias: (json['medias'] as List<dynamic>)
             .map((media) => Media.fromJson(media),).toList()
     );

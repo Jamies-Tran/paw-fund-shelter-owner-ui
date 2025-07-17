@@ -6,7 +6,7 @@ import 'package:paw_fund_shelter_owner/screens/account_registration/views/regist
 import 'package:paw_fund_shelter_owner/screens/account_registration/views/verification/account_verification_view.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/views/verification/sending_verification_view.dart';
 import 'package:paw_fund_shelter_owner/screens/home/views/home.dart';
-import 'package:paw_fund_shelter_owner/screens/medias/repository/firebase/media_firebase.dart';
+
 import 'package:paw_fund_shelter_owner/screens/shelter_intro/views/shelter_intro_view.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/route/routes.dart';
 

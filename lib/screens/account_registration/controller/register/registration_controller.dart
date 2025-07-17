@@ -1,16 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:paw_fund_shelter_owner/screens/account_registration/repository/api/register/model/registration_model.dart';
-import 'package:paw_fund_shelter_owner/screens/account_registration/repository/api/register/registration_api.dart';
-import 'package:paw_fund_shelter_owner/screens/medias/repository/firebase/media_firebase.dart';
-import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
+import 'package:paw_fund_shelter_owner/repository/api/models/account/account_model.dart';
+import 'package:paw_fund_shelter_owner/repository/api/register/registration_api.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/route/routes.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/handle_response/handle_response.dart';
-import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
 
 class RegistrationController extends GetxController {
+  late IRegistrationApi _registrationApi;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _registrationApi = Get.find();
+  }
 
   // logo đặt dưới nút đăng ký
   final Rx<String> _logoRegisterUrl = "".obs;
@@ -353,33 +357,23 @@ class RegistrationController extends GetxController {
     _phoneController.value.clear();
   }
 
-  late IRegistrationApi _registrationApi;
-
-  @override
-  void onInit() {
-    super.onInit();
-    _registrationApi = Get.find();
-  }
-
   Future<void> register() async {
     try {
       _isPending.value = true;
-
-      DateFormat dateFormat = DateFormat("yyyy-MM-dd");
 
       Account account = Account(
           firstName: _firstNameController.value.text,
           lastName: _lastNameController.value.text,
           email: _emailController.value.text,
           phone: _phoneController.value.text,
-          dateOfBirth: dateFormat.parse(_birthdayController.value.text),
+          dateOfBirth: PDateTimeUtils.formatDateTime(_birthdayController.value.text, "yyyy-MM-dd"),
           password: _passwordController.value.text
       );
 
       ValueResponse valueResponse = await _registrationApi.register(account);
       if (PResponseStatusUtils.isSuccess(valueResponse)) {
         int accountId = valueResponse.data;
-        Get.toNamed(PRoute.sendingVerificationView, arguments: {accountId});
+        Get.toNamed(PRoute.sendingVerificationView, arguments: {"accountId": accountId});
       }
 
     } finally {

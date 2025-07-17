@@ -2,8 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/controller/register/registration_controller.dart';
-import 'package:paw_fund_shelter_owner/screens/medias/repository/firebase/media_firebase.dart';
-import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/route/routes.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/enums/paw_enums.dart';
@@ -12,7 +10,6 @@ import 'package:paw_fund_shelter_owner/share/responsive_design/template/paw_temp
 import 'package:paw_fund_shelter_owner/share/widgets/animation/paw_animation.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/button/paw_button.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/icon/paw_icon.dart';
-import 'package:paw_fund_shelter_owner/share/widgets/image/paw_image.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/text/paw_text.dart';
 
 class RegistrationView extends StatelessWidget {
@@ -20,9 +17,10 @@ class RegistrationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RegistrationController controller = Get.find();
 
     return PTemplate(
-        desktop: DesktopView(),
+        desktop: DesktopView(controller: controller,),
         tablet: TabletView(),
         mobile: MobileView(),
         layoutVer: ELayoutVersion.verOne,
@@ -33,17 +31,24 @@ class RegistrationView extends StatelessWidget {
 class DesktopView extends StatefulWidget {
   const DesktopView({
     super.key,
+    required this.controller
   });
+
+  final RegistrationController controller;
 
   @override
   State<DesktopView> createState() => _DesktopViewState();
 }
 
 class _DesktopViewState extends State<DesktopView> {
-
-  RegistrationController controller = Get.find();
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    formKey.currentState!.dispose();
+    widget.controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,20 +103,20 @@ class _DesktopViewState extends State<DesktopView> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         PConstant.hDistance30,
-                
+
                         PTextFormField(
                           width: MediaQuery.of(context).size.width * 0.265,
-                          enable: !controller.getIsPending(),
-                          controller: controller.getEmailController(),
+                          enable: !widget.controller.getIsPending(),
+                          controller: widget.controller.getEmailController(),
                           textInputType: TextInputType.emailAddress,
                           labelText: "Email",
                           hintText: "Nhập email của bạn",
                           suffixIcon: PIcon(
                             iconData: Icons.email,
                             iconButtonData: Icons.clear,
-                            isButton: controller.getIsEmailEditing(),
-                            onPress: () => controller.clearEmailText(),
-                            color: controller.getIsEmailHover()
+                            isButton: widget.controller.getIsEmailEditing(),
+                            onPress: () => widget.controller.clearEmailText(),
+                            color: widget.controller.getIsEmailHover()
                                 ? Colors.orangeAccent
                                 : Colors.black,
                           ),
@@ -122,40 +127,40 @@ class _DesktopViewState extends State<DesktopView> {
                             if (PStringUtils.isEmpty(value)) {
                               return "Vui lòng nhập email";
                             }
-                
+
                             if (!PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))) {
                               return "Email không hợp lệ";
                             }
-                
+
                             return null;
                           },
-                          onTap: () => controller.setIsEmailHover(true),
-                          onTapOutside: (_) => controller.setIsEmailHover(false),
+                          onTap: () => widget.controller.setIsEmailHover(true),
+                          onTapOutside: (_) => widget.controller.setIsEmailHover(false),
                           onChanged: (value) {
                             bool isValid = PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
                               && PStringUtils.isNotEmpty(value);
-                            controller.setIsEmailValidate(isValid);
+                            widget.controller.setIsEmailValidate(isValid);
                           },
                         ),
-                
+
                         PConstant.hDistance15,
-                
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             PTextFormField(
                               width: MediaQuery.of(context).size.width * 0.13,
-                              enable: !controller.getIsPending(),
-                              controller: controller.getPasswordController(),
+                              enable: !widget.controller.getIsPending(),
+                              controller: widget.controller.getPasswordController(),
                               obscureText: true,
                               labelText: "Mật khẩu",
                               hintText: "Nhập mật khẩu của bạn",
                               suffixIcon: PIcon(
                                 iconData: Icons.password,
                                 iconButtonData: Icons.clear,
-                                isButton: controller.getIsPasswordEditing(),
-                                onPress: () => controller.clearPasswordText(),
-                                color: controller.getIsPasswordHover()
+                                isButton: widget.controller.getIsPasswordEditing(),
+                                onPress: () => widget.controller.clearPasswordText(),
+                                color: widget.controller.getIsPasswordHover()
                                     ? Colors.orangeAccent
                                     : Colors.black,
                               ),
@@ -167,31 +172,31 @@ class _DesktopViewState extends State<DesktopView> {
                                 if (PStringUtils.isEmpty(value)) {
                                   return "Vui lòng nhập mật khẩu";
                                 }
-                
+
                                 return null;
                               },
-                              onTap: () => controller.setIsPasswordHover(true),
-                              onTapOutside: (_) => controller
+                              onTap: () => widget.controller.setIsPasswordHover(true),
+                              onTapOutside: (_) => widget.controller
                                   .setIsPasswordHover(false),
-                              onChanged: (value) => controller
+                              onChanged: (value) => widget.controller
                                   .setIsPasswordValidate(PStringUtils.isNotEmpty(value)),
                             ),
-                
+
                             PConstant.vDistance5,
-                
+
                             PTextFormField(
                               width: MediaQuery.of(context).size.width * 0.13,
-                              enable: !controller.getIsPending(),
-                              controller: controller.getRePasswordController(),
+                              enable: !widget.controller.getIsPending(),
+                              controller: widget.controller.getRePasswordController(),
                               obscureText: true,
                               labelText: "Xác nhận mật khẩu",
                               hintText: "Nhập lại mật khẩu của bạn",
                               suffixIcon: PIcon(
                                 iconData:  Icons.password,
                                 iconButtonData: Icons.clear,
-                                isButton: controller.getIsRePasswordEditing(),
-                                onPress: () => controller.clearRePasswordText(),
-                                color: controller.getIsRePasswordHover()
+                                isButton: widget.controller.getIsRePasswordEditing(),
+                                onPress: () => widget.controller.clearRePasswordText(),
+                                color: widget.controller.getIsRePasswordHover()
                                     ? Colors.orangeAccent
                                     : Colors.black,
                               ),
@@ -203,21 +208,21 @@ class _DesktopViewState extends State<DesktopView> {
                                 if(PStringUtils.isEmpty(value)) {
                                   return "Vui lòng nhập lại mật khẩu";
                                 }
-                
-                                if (!controller.getIsRePasswordMatch()) {
+
+                                if (!widget.controller.getIsRePasswordMatch()) {
                                   return "Mật khẩu không khớp";
                                 }
-                
+
                                 return null;
                               },
-                              onTap: () => controller.setIsRePasswordHover(true),
-                              onTapOutside: (_) => controller
+                              onTap: () => widget.controller.setIsRePasswordHover(true),
+                              onTapOutside: (_) => widget.controller
                                      .setIsRePasswordHover(false),
                               onChanged: (value) {
-                                controller
+                                widget.controller
                                     .setIsRePasswordValidate(PStringUtils.isNotEmpty(value));
                               },
-                
+
                             ),
                           ],
                         ),
@@ -226,8 +231,8 @@ class _DesktopViewState extends State<DesktopView> {
 
                         PDateRangePicker(
                           width: MediaQuery.of(context).size.width * 0.265,
-                          enable: !controller.getIsPending(),
-                          controller: controller.getBirthdayController(),
+                          enable: !widget.controller.getIsPending(),
+                          controller: widget.controller.getBirthdayController(),
                           selectionColor: Colors.orangeAccent,
                           backgroundColor: Colors.white,
                           textInputType: TextInputType.emailAddress,
@@ -236,9 +241,9 @@ class _DesktopViewState extends State<DesktopView> {
                           suffixIcon: PIcon(
                             iconData: Icons.cake,
                             iconButtonData: Icons.clear,
-                            isButton: controller.getIsBirthdayEditing(),
-                            onPress: () => controller.clearBirthdayText(),
-                            color: controller.getIsBirthdayHover()
+                            isButton: widget.controller.getIsBirthdayEditing(),
+                            onPress: () => widget.controller.clearBirthdayText(),
+                            color: widget.controller.getIsBirthdayHover()
                                 ? Colors.orangeAccent
                                 : Colors.black,
                           ),
@@ -253,8 +258,8 @@ class _DesktopViewState extends State<DesktopView> {
                             return null;
                           },
                           onSelectionChanged: (value) {
-                            controller.setBirthdayControllerText(value.value.toString().substring(0, 10));
-                            controller.setIsBirthdayValidate();
+                            widget.controller.setBirthdayControllerText(value.value.toString().substring(0, 10));
+                            widget.controller.setIsBirthdayValidate();
                           },
                           maxDate: DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day),
                         ),
@@ -266,16 +271,16 @@ class _DesktopViewState extends State<DesktopView> {
                           children: [
                             PTextFormField(
                               width: MediaQuery.of(context).size.width * 0.13,
-                              enable: !controller.getIsPending(),
-                              controller: controller.getFirstNameController(),
+                              enable: !widget.controller.getIsPending(),
+                              controller: widget.controller.getFirstNameController(),
                               labelText: "Họ",
                               hintText: "Nhập họ của bạn",
                               suffixIcon: PIcon(
                                 iconData: Icons.account_circle_outlined,
                                 iconButtonData: Icons.clear,
-                                isButton: controller.getIsFirstNameEditing(),
-                                onPress: () => controller.clearFirstNameText(),
-                                color: controller.getIsFirstNameHover()
+                                isButton: widget.controller.getIsFirstNameEditing(),
+                                onPress: () => widget.controller.clearFirstNameText(),
+                                color: widget.controller.getIsFirstNameHover()
                                     ? Colors.orangeAccent
                                     : Colors.black,
                               ),
@@ -287,33 +292,33 @@ class _DesktopViewState extends State<DesktopView> {
                                 if (PStringUtils.isEmpty(value)) {
                                   return "Vui lòng nhập họ của bạn";
                                 }
-                
+
                                 return null;
                               },
-                              onTap: () => controller.setIsFirstNameHover(true),
-                              onTapOutside: (_) => controller
+                              onTap: () => widget.controller.setIsFirstNameHover(true),
+                              onTapOutside: (_) => widget.controller
                                   .setIsFirstNameHover(false),
                               onChanged: (value) {
-                                controller.setIsFirstNameValidate(PStringUtils
+                                widget.controller.setIsFirstNameValidate(PStringUtils
                                     .isNotEmpty(value));
                               },
-                
+
                             ),
-                
+
                             PConstant.vDistance5,
-                
+
                             PTextFormField(
                               width: MediaQuery.of(context).size.width * 0.13,
-                              enable: !controller.getIsPending(),
-                              controller: controller.getLastNameController(),
+                              enable: !widget.controller.getIsPending(),
+                              controller: widget.controller.getLastNameController(),
                               labelText: "Tên",
                               hintText: "Nhập tên của bạn",
                               suffixIcon: PIcon(
                                 iconData: Icons.account_circle,
                                 iconButtonData: Icons.clear,
-                                isButton: controller.getIsLastNameEditing(),
-                                onPress: () => controller.clearLastNameText(),
-                                color: controller.getIsLastNameHover()
+                                isButton: widget.controller.getIsLastNameEditing(),
+                                onPress: () => widget.controller.clearLastNameText(),
+                                color: widget.controller.getIsLastNameHover()
                                     ? Colors.orangeAccent
                                     : Colors.black,
                               ),
@@ -324,35 +329,35 @@ class _DesktopViewState extends State<DesktopView> {
                                 if (PStringUtils.isEmpty(value)) {
                                   return "Vui lòng nhập tên của bạn";
                                 }
-                
+
                                 return null;
                               },
-                              onTap: () => controller.setIsLastNameHover(true),
-                              onTapOutside: (_) => controller
+                              onTap: () => widget.controller.setIsLastNameHover(true),
+                              onTapOutside: (_) => widget.controller
                                   .setIsLastNameHover(false),
                               onChanged: (value) {
-                                controller.setIsLastNameValidate(PStringUtils
+                                widget.controller.setIsLastNameValidate(PStringUtils
                                     .isNotEmpty(value));
                               },
                             )
                           ],
                         ),
-                
+
                         PConstant.hDistance15,
-                
+
                         PTextFormField(
                             width: MediaQuery.of(context).size.width * 0.265,
-                            enable: !controller.getIsPending(),
-                            controller: controller.getPhoneController(),
+                            enable: !widget.controller.getIsPending(),
+                            controller: widget.controller.getPhoneController(),
                             labelText: "Số điện thoại",
                             hintText: "Nhập số điện thoại của bạn",
                             textInputType: TextInputType.number,
                             suffixIcon: PIcon (
                               iconData: Icons.phone,
                               iconButtonData: Icons.clear,
-                              isButton: controller.getIsPhoneEditing(),
-                              onPress: () => controller.clearPhoneText(),
-                              color: controller.getIsPhoneHover()
+                              isButton: widget.controller.getIsPhoneEditing(),
+                              onPress: () => widget.controller.clearPhoneText(),
+                              color: widget.controller.getIsPhoneHover()
                                   ? Colors.orangeAccent
                                   : Colors.black,
                             ),
@@ -363,27 +368,26 @@ class _DesktopViewState extends State<DesktopView> {
                               if (PStringUtils.isEmpty(value)) {
                                 return "Vui lòng nhập số điện thoại";
                               }
-                
+
                               if (!PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))) {
-                
+
                                 return "Số điện thoại không hợp lệ";
-                
+
                               }
                               return null;
                             },
-                            onTap: () => controller.setIsPhoneHover(true),
-                            onTapOutside: (_) => controller
-                
+                            onTap: () => widget.controller.setIsPhoneHover(true),
+                            onTapOutside: (_) => widget.controller
                                 .setIsPhoneHover(false),
                             onChanged: (value) {
                               bool isValidated = PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))
                                   && PStringUtils.isNotEmpty(value);
-                              controller.setIsPhoneValidate(isValidated);
+                              widget.controller.setIsPhoneValidate(isValidated);
                             }
                         ),
-                
+
                         PConstant.hDistance50,
-                
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -405,9 +409,9 @@ class _DesktopViewState extends State<DesktopView> {
                               )
                           ]
                         ),
-                
+
                         PConstant.hDistance10,
-                
+
                         PButton(
                           width: MediaQuery.of(context).size.width * 0.245,
                           title: PText(
@@ -416,12 +420,12 @@ class _DesktopViewState extends State<DesktopView> {
                               fontWeight: FontWeight.bold,
                               textColor: Color(Colors.white.toARGB32()),
                           ),
-                          backgroundColor: controller.getIsDataValidated()
+                          backgroundColor: widget.controller.getIsDataValidated()
                               ? Color(Colors.green.toARGB32())
                               : Color(Colors.grey.toARGB32()),
                           onPress:() {
-                            if (controller.getIsDataValidated() && formKey.currentState!.validate()) {
-                              controller.register();
+                            if (widget.controller.getIsDataValidated() && formKey.currentState!.validate()) {
+                              widget.controller.register();
                             }
                 
                           },
