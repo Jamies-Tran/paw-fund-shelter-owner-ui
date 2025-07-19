@@ -204,6 +204,7 @@ class PDateRangePicker extends StatefulWidget {
 
     this.controller,
     this.enable,
+    this.readOnly,
 
     required this.labelText,
     required this.hintText,
@@ -245,6 +246,7 @@ class PDateRangePicker extends StatefulWidget {
   });
 
   final bool? enable;
+  final bool? readOnly;
 
   final TextEditingController? controller;
 
@@ -301,7 +303,7 @@ class _PDateRangePickerState extends State<PDateRangePicker> {
   }
 
   void _showDateRangePicker() {
-    DateTime minDate = PObjectUtils.requiredNonNullOrElse(widget.minDate, DateTime.now());
+
     _overlayEntry = OverlayEntry(
       builder: (context) {
         return Positioned(
@@ -310,7 +312,7 @@ class _PDateRangePickerState extends State<PDateRangePicker> {
             link: _layerLink,
             showWhenUnlinked: false,
             offset: Offset(0, 50),
-            child: Material(
+            child: PObjectUtils.requiredNonNullOrElse(widget.readOnly, false) ? SizedBox() : Material(
               elevation: 4,
               child: SfDateRangePicker(
                 selectionMode: PObjectUtils

@@ -30,7 +30,6 @@ class PApiUtils {
 
           onResponse: (response, handler) {
             ValueResponse valueResponse = ValueResponse.fromJson(response.data);
-            HandleResponse.onSuccess(valueResponse.message);
 
             handler.resolve(response);
           },
@@ -55,6 +54,16 @@ class PApiUtils {
 
   Future<ValueResponse> doGet(String endPoint, Map<String, String>? queryParams) async {
     Response response = await _dio.get(endPoint, queryParameters: queryParams);
+    return ValueResponse.fromJson(response.data);
+  }
+
+  Future<ValueResponse> doPut(String endpoint, dynamic json) async {
+    Response response = await _dio.put(endpoint, data: json);
+    return ValueResponse.fromJson(response.data);
+  }
+
+  Future<ValueResponse> doPatch(String endpoint, dynamic json) async {
+    Response response = await _dio.patch(endpoint, data: json);
     return ValueResponse.fromJson(response.data);
   }
 }

@@ -5,7 +5,7 @@ class PIcon extends StatelessWidget {
   const PIcon({
     super.key,
 
-    required this.iconData,
+    this.iconData,
 
     this.iconButtonData,
 
@@ -17,7 +17,7 @@ class PIcon extends StatelessWidget {
     this.onPress
   });
 
-  final IconData iconData;
+  final IconData? iconData;
   final IconData? iconButtonData;
   final Color? color;
   final double? size;

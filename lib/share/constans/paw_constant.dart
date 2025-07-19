@@ -21,6 +21,8 @@ class PConstant {
   // vertical distance
   static const SizedBox vDistance5 = SizedBox(width: 5,);
   static const SizedBox vDistance10 = SizedBox(width: 10,);
+  static const SizedBox vDistance20 = SizedBox(width: 20,);
+  static const SizedBox vDistance45 = SizedBox(width: 45,);
   static const SizedBox vDistance50 = SizedBox(width: 50,);
   static const SizedBox vDistance100 = SizedBox(width: 100,);
   static const SizedBox vDistance150 = SizedBox(width: 150,);

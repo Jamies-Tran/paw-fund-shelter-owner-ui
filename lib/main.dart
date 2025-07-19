@@ -12,7 +12,6 @@ import 'package:url_strategy/url_strategy.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
-  print(FIREBASE_API_KEY);
 
   await Firebase.initializeApp(
     options: FirebaseOptions(

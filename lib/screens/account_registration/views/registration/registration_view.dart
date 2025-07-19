@@ -10,6 +10,7 @@ import 'package:paw_fund_shelter_owner/share/responsive_design/template/paw_temp
 import 'package:paw_fund_shelter_owner/share/widgets/animation/paw_animation.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/button/paw_button.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/icon/paw_icon.dart';
+import 'package:paw_fund_shelter_owner/share/widgets/progresss_bar/progress_bar.dart';
 import 'package:paw_fund_shelter_owner/share/widgets/text/paw_text.dart';
 
 class RegistrationView extends StatelessWidget {
@@ -411,26 +412,29 @@ class _DesktopViewState extends State<DesktopView> {
                         ),
 
                         PConstant.hDistance10,
-
-                        PButton(
-                          width: MediaQuery.of(context).size.width * 0.245,
-                          title: PText(
+                        PWidgetUtils.chooseWithCondition(
+                          widget.controller.getIsPending(),
+                          PProgressBar(progressColors: [Colors.white, Colors.orangeAccent],),
+                          PButton(
+                            width: MediaQuery.of(context).size.width * 0.245,
+                            title: PText(
                               content: "Đăng ký",
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               textColor: Color(Colors.white.toARGB32()),
-                          ),
-                          backgroundColor: widget.controller.getIsDataValidated()
-                              ? Color(Colors.green.toARGB32())
-                              : Color(Colors.grey.toARGB32()),
-                          onPress:() {
-                            if (widget.controller.getIsDataValidated() && formKey.currentState!.validate()) {
-                              widget.controller.register();
-                            }
-                
-                          },
-                
+                            ),
+                            backgroundColor: widget.controller.getIsDataValidated()
+                                ? Color(Colors.green.toARGB32())
+                                : Color(Colors.grey.toARGB32()),
+                            onPress:() {
+                              if (widget.controller.getIsDataValidated() && formKey.currentState!.validate()) {
+                                widget.controller.register();
+                              }
+
+                            },
+                          )
                         ),
+
                       ],
                     ),
                   ),

@@ -1,6 +1,8 @@
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 
 class Account {
+  final int? accountId;
+
   final String? firstName;
   final String? lastName;
   final String? email;
@@ -19,6 +21,7 @@ class Account {
   final List<Media>? medias;
 
   const Account({
+    this.accountId,
     this.firstName,
     this.lastName,
     this.email,
@@ -58,6 +61,7 @@ class Account {
 
   factory Account.fromJson(Map<String, dynamic> json) {
     return Account(
+        accountId: json['accountId'],
         firstName: json['firstName'],
         lastName: json['lastName'],
         email: json['email'],

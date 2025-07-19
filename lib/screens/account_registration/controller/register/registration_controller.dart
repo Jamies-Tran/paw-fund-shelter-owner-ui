@@ -370,11 +370,8 @@ class RegistrationController extends GetxController {
           password: _passwordController.value.text
       );
 
-      ValueResponse valueResponse = await _registrationApi.register(account);
-      if (PResponseStatusUtils.isSuccess(valueResponse)) {
-        int accountId = valueResponse.data;
-        Get.toNamed(PRoute.sendingVerificationView, arguments: {"accountId": accountId});
-      }
+      int accountId = await _registrationApi.register(account, "Đăng ký tài khoản thành công");
+      Get.toNamed(PRoute.sendingVerificationView, arguments: {"accountId": accountId});
 
     } finally {
       _isPending.value = false;

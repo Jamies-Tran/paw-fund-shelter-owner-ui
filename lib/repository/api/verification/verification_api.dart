@@ -1,31 +1,28 @@
-import 'dart:async';
-
-import 'package:paw_fund_shelter_owner/repository/api/models/account/account_model.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_api_utils.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/handle_response/handle_response.dart';
 
-abstract class IRegistrationApi {
-  Future<int> register(Account account, String? successMessage);
+abstract class IVerificationApi {
+  Future<void> sendVerifyAccount(String email, String? successMessage);
 }
 
-class RegistrationApiImpl extends IRegistrationApi {
-  late PApiUtils _api;
+class VerificationApiImpl implements IVerificationApi {
+  late PApiUtils _apiUtils;
 
-  RegistrationApiImpl() {
-    _api = PApiUtils();
+  VerificationApiImpl() {
+    _apiUtils = PApiUtils();
   }
 
   @override
-  Future<int> register(Account account, String? successMessage) async {
-    ValueResponse response = await _api
-        .doPost(PAW_REGISTRATION, account.toJson());
+  Future<void> sendVerifyAccount(String email, String? successMessage) async {
+    ValueResponse response = await _apiUtils
+        .doPost(PAW_VERIFICATION_ACCOUNT, {"email": email});
     if (PResponseStatusUtils.isSuccess(response)) {
       PStringUtils.isNotEmpty(successMessage)
           ? HandleResponse.onSuccess(successMessage)
           : ();
     }
-    return response.data;
   }
+
 }
