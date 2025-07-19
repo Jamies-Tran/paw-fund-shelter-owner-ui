@@ -1,13 +1,13 @@
 window.env = {
     // firebase
-    FIREBASE_API_KEY: "AIzaSyCsocFANvhTeNgD6ds-HrFgfxQjhkLaaIY",
-    FIREBASE_AUTH_DOMAIN: "realmen-2023.firebaseapp.com",
-    FIREBASE_DB_URL: "https://realmen-2023-default-rtdb.asia-southeast1.firebasedatabase.app",
-    FIREBASE_PROJECT_ID: "realmen-2023",
-    FIREBASE_STORAGE_BUCKET: "realmen-2023.appspot.com",
-    FIREBASE_MESSAGING_SENDER_ID: "557539940447",
-    FIREBASE_APP_ID: "1:557539940447:web:cea505d424c820a41ea3ea",
-    FIREBASE_MEASUREMENT_ID: "G-CZZR22EX5J",
+    FIREBASE_API_KEY: "AIzaSyCqBFSwOEItmuCH8IYrBWidzANjIDV4nrw",
+    FIREBASE_AUTH_DOMAIN: "paw-fund-shelter-o.firebaseapp.com",
+//    FIREBASE_DB_URL: "https://realmen-2023-default-rtdb.asia-southeast1.firebasedatabase.app",
+    FIREBASE_PROJECT_ID: "paw-fund-shelter-o",
+    FIREBASE_STORAGE_BUCKET: "paw-fund-shelter-o.firebasestorage.app",
+    FIREBASE_MESSAGING_SENDER_ID: "1030255301551",
+    FIREBASE_APP_ID: "1:1030255301551:web:84ac5c26b1d3f13627555a",
+    FIREBASE_MEASUREMENT_ID: "G-CZRBHT5ZWN",
 
     // image from assets
     LOGO: "logo_chua_xoa_nen_2.png",
