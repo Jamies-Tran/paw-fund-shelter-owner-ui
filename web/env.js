@@ -18,7 +18,7 @@ window.env = {
 
     PAW_DOMAIN_LOCAL: "http://localhost:8080",
 
-    IS_LOCAL: true,
+    IS_LOCAL: false,
 };
 
 window.env.DOMAIN = window.env.IS_LOCAL ? window.env.PAW_DOMAIN_LOCAL : window.env.PAW_DOMAIN;
