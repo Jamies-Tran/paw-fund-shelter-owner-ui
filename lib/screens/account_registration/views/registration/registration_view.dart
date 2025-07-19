@@ -72,7 +72,7 @@ class _DesktopViewState extends State<DesktopView> {
                   height: 600,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("sua.jpg"),
+                        image: AssetImage("assets/sua.jpg"),
                         fit: BoxFit.fitHeight,
                       ),
                       boxShadow: [
