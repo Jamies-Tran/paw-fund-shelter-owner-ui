@@ -3,7 +3,6 @@ import 'package:paw_fund_shelter_owner/screens/account_registration/controller/r
 import 'package:paw_fund_shelter_owner/screens/account_registration/controller/verification/account_verification_controller.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/controller/verification/sending_verification_controller.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/views/registration/registration_view.dart';
-import 'package:paw_fund_shelter_owner/screens/account_registration/views/verification/account_verification_view.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/views/verification/sending_verification_view.dart';
 import 'package:paw_fund_shelter_owner/screens/home/views/home.dart';
 
@@ -43,14 +42,6 @@ class PAppRoute {
         bindings: [
           BindingsBuilder(() => Get
               .lazyPut<SendingVerificationController>(() => SendingVerificationController(),),)
-        ]
-    ),
-    GetPage(
-        name: PRoute.accountVerificationView,
-        page: () => AccountVerificationView(),
-        bindings: [
-          BindingsBuilder(() => Get
-              .lazyPut<AccountVerificationController>(() => AccountVerificationController(),),)
         ]
     ),
   ];

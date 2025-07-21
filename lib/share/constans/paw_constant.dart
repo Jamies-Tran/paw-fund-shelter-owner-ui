@@ -46,3 +46,5 @@ class PConstant {
   static const pawFundLogo = "gs://realmen-2023.appspot.com/Logo_chua_xoa_nen_2.png";
 
 }
+
+const int authType = 0;

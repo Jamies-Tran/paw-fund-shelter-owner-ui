@@ -149,7 +149,7 @@ class _PSubMenuItemState extends State<PSubMenuItem> {
     _overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
         width: 300,
-        height: 90,
+        height: 100,
         child: CompositedTransformFollower(
             link: _layerLink,
             offset: Offset(-15, 75),
@@ -165,36 +165,38 @@ class _PSubMenuItemState extends State<PSubMenuItem> {
                 elevation: 4,
                 color: PConstant.orangeAccent,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(),
                   child: Column(
                     children: [
                       PHoverButton(
                         onPress: () {
                           Get.toNamed(PRoute.registrationView);
                         },
-                        width: 200,
-                        height: 30,
-                        backgroundColor: PConstant.white,
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        backgroundColor: Colors.white,
+                        backgroundColorHover: Colors.orangeAccent,
                         fontWeight: FontWeight.bold,
+                        shape: RoundedRectangleBorder(),
                         textSize: 13,
                         textSizeHover: 17,
-                        textColor: PConstant.orangeAccent,
-                        textColorHover: PConstant.purple,
+                        textColor: Colors.orangeAccent,
+                        textColorHover: Colors.white,
                         title: Text("Đăng ký"),
                       ),
-                      PConstant.hDistance10,
                       PHoverButton(
                         onPress: () {},
-                        width: 200,
-                        height: 30,
-                        backgroundColor: PConstant.white,
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        backgroundColor: Colors.white,
+                        backgroundColorHover: Colors.orangeAccent,
                         fontWeight: FontWeight.bold,
+                        shape: RoundedRectangleBorder(),
                         textSize: 13,
                         textSizeHover: 17,
-                        textColor: PConstant.orangeAccent,
-                        textColorHover: PConstant.green,
+                        textColor: Colors.orangeAccent,
+                        textColorHover: Colors.white,
                         title: Text("Đăng nhập"),
-
                       ),
                     ],
                   ),

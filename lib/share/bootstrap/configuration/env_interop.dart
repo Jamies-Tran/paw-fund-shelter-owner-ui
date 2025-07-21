@@ -37,6 +37,12 @@ external String get LOGO;
 external String get LOGO_NO_BRAND;
 
 @JS()
+external String get REGISTRATION_IMG;
+
+@JS()
+external String get SENDING_VERIFICATION_IMG;
+
+@JS()
 external String get PAW_ACCOUNT_PUB;
 
 @JS()

@@ -9,14 +9,14 @@ import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 class SendingVerificationController extends GetxController {
   late IAccountApi _accountApi;
   late IVerificationApi _verificationApi;
-  final Rx<int> _accountId = 2.obs;
+  final Rx<int> _accountId = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
     _accountApi = Get.find();
     _verificationApi = Get.find();
-    // fetchAccountId();
+    fetchAccountId();
     fetchData();
   }
 

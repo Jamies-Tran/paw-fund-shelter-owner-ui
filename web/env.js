@@ -10,8 +10,10 @@ window.env = {
     FIREBASE_MEASUREMENT_ID: "G-CZRBHT5ZWN",
 
     // image from assets
-    LOGO: "logo_chua_xoa_nen_2.png",
-    LOGO_NO_BRAND: "paw_logo_xoa_nen.png",
+    LOGO: "assets/logo_chua_xoa_nen_2.png",
+    LOGO_NO_BRAND: "assets/paw_logo_xoa_nen.png",
+    REGISTRATION_IMG: "assets/sua.jpg",
+    SENDING_VERIFICATION_IMG: "assets/sua.jpg",
 
     // api
     PAW_DOMAIN: "https://pawfund-core-service-2e6d01c7cb49.herokuapp.com",

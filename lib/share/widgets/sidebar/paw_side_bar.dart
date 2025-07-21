@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/route/routes.dart';
 import 'package:paw_fund_shelter_owner/share/constans/enums/paw_enums.dart';
 import 'package:paw_fund_shelter_owner/share/constans/paw_constant.dart';
@@ -22,8 +23,8 @@ class PSideBar extends StatelessWidget {
       child: Column(
         children: [
           PImage(
-            url: PConstant.pawFundLogo,
-            imageType: EImageType.network,
+            url: LOGO,
+            imageType: EImageType.asset,
             width: 350,
             height: 100,
             boxFit: BoxFit.fitWidth,

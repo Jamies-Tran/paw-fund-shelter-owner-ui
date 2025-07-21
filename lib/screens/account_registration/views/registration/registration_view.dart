@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/controller/register/registration_controller.dart';
+import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/route/routes.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 import 'package:paw_fund_shelter_owner/share/constans/enums/paw_enums.dart';
@@ -72,7 +73,7 @@ class _DesktopViewState extends State<DesktopView> {
                   height: 600,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/sua.jpg"),
+                        image: AssetImage(REGISTRATION_IMG),
                         fit: BoxFit.fitHeight,
                       ),
                       boxShadow: [
