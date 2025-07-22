@@ -67,10 +67,10 @@ class PHoverButton extends StatelessWidget {
     this.shape,
     this.shapeHover,
 
-    this.width,
+    required this.width,
     this.widthHover,
 
-    this.height,
+    required this.height,
     this.heightHover,
 
     this.textSize,
@@ -94,9 +94,9 @@ class PHoverButton extends StatelessWidget {
   final OutlinedBorder? shape;
   final OutlinedBorder? shapeHover;
 
-  final double? width;
+  final double width;
   final double? widthHover;
-  final double? height;
+  final double height;
   final double? heightHover;
 
   final double? textSize;
@@ -145,13 +145,13 @@ class PHoverButton extends StatelessWidget {
               );
             }
 
-            return Size(width!, height!);
+            return Size(width, height);
           },),
           textStyle: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.hovered)) {
               return TextStyle(
                 fontSize: PObjectUtils.requiredNonNullOrElse(textSizeHover, textSize),
-                fontWeight: PObjectUtils.requiredNonNullOrElse(fontWeightHover, fontWeight)
+                fontWeight: PObjectUtils.requiredNonNullOrElse(fontWeightHover, fontWeight),
               );
             }
 

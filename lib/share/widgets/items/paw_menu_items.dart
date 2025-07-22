@@ -185,7 +185,9 @@ class _PSubMenuItemState extends State<PSubMenuItem> {
                         title: Text("Đăng ký"),
                       ),
                       PHoverButton(
-                        onPress: () {},
+                        onPress: () {
+                          Get.toNamed(PRoute.loginView);
+                        },
                         width: MediaQuery.of(context).size.width,
                         height: 50,
                         backgroundColor: Colors.white,

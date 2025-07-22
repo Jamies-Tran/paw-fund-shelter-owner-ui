@@ -14,6 +14,7 @@ window.env = {
     LOGO_NO_BRAND: "assets/paw_logo_xoa_nen.png",
     REGISTRATION_IMG: "assets/sua.jpg",
     SENDING_VERIFICATION_IMG: "assets/sua.jpg",
+    LOGIN_IMG: "assets/sua.jpg",
 
     // api
     PAW_DOMAIN: "https://pawfund-core-service-2e6d01c7cb49.herokuapp.com",

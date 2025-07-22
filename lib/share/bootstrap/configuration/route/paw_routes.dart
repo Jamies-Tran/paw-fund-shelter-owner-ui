@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/controller/register/registration_controller.dart';
-import 'package:paw_fund_shelter_owner/screens/account_registration/controller/verification/account_verification_controller.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/controller/verification/sending_verification_controller.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/views/registration/registration_view.dart';
 import 'package:paw_fund_shelter_owner/screens/account_registration/views/verification/sending_verification_view.dart';
 import 'package:paw_fund_shelter_owner/screens/home/views/home.dart';
+import 'package:paw_fund_shelter_owner/screens/login/controller/login_controller.dart';
+import 'package:paw_fund_shelter_owner/screens/login/view/login_view.dart';
 
 import 'package:paw_fund_shelter_owner/screens/shelter_intro/views/shelter_intro_view.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/middleware/paw_middleware.dart';
@@ -26,7 +27,11 @@ class PAppRoute {
     ),
     GetPage(
       name: PRoute.loginView,
-      page: () => HomeScreen(),
+      page: () => LoginView(),
+      bindings: [
+        BindingsBuilder(() => Get
+            .lazyPut<LoginController>(() => LoginController(),),)
+      ]
     ),
     GetPage(
         name: PRoute.registrationView,

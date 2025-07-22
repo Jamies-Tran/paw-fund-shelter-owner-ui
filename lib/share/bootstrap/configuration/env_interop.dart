@@ -43,6 +43,9 @@ external String get REGISTRATION_IMG;
 external String get SENDING_VERIFICATION_IMG;
 
 @JS()
+external String get LOGIN_IMG;
+
+@JS()
 external String get PAW_ACCOUNT_PUB;
 
 @JS()

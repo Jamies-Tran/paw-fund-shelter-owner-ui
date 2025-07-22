@@ -9,14 +9,14 @@ import 'package:paw_fund_shelter_owner/share/bootstrap/utils/paw_utils.dart';
 class SendingVerificationController extends GetxController {
   late IAccountApi _accountApi;
   late IVerificationApi _verificationApi;
-  final Rx<int> _accountId = 0.obs;
+  final Rx<int> _accountId = 2.obs;
 
   @override
   void onInit() {
     super.onInit();
     _accountApi = Get.find();
     _verificationApi = Get.find();
-    fetchAccountId();
+    // fetchAccountId();
     fetchData();
   }
 
@@ -40,7 +40,8 @@ class SendingVerificationController extends GetxController {
   // email
   final Rx<TextEditingController> _emailController = TextEditingController().obs;
   final Rx<bool> _isEmailFocus = false.obs;
-  final Rx<bool> _isEmailValidate = false.obs;
+  final Rx<bool> _isEmailEditing = false.obs;
+  final Rx<bool> _isEmailValidate = true.obs;
 
 
   void clearEmailText() {
@@ -59,8 +60,12 @@ class SendingVerificationController extends GetxController {
     return _isEmailFocus.value;
   }
 
+  void setIsEmailEditing() {
+    _isEmailEditing.value = PStringUtils.isNotEmpty(_emailController.value.text);
+  }
+
   bool getIsEmailEditing() {
-    return PStringUtils.isNotEmpty(_emailController.value.text);
+    return _isEmailEditing.value;
   }
 
   void setIsEmailValidate(bool isValidate) {
@@ -70,7 +75,8 @@ class SendingVerificationController extends GetxController {
   // ngày sinh
   final Rx<TextEditingController> _birthdayController = TextEditingController().obs;
   final Rx<bool> _isBirthdayFocus = false.obs;
-  final Rx<bool> _isBirthdayValidate = false.obs;
+  final Rx<bool> _isBirthdayEditing = false.obs;
+  final Rx<bool> _isBirthdayValidate = true.obs;
 
   TextEditingController getBirthdayController() {
     return _birthdayController.value;
@@ -96,14 +102,23 @@ class SendingVerificationController extends GetxController {
     return _isBirthdayFocus.value;
   }
 
-  void setIsBirthdayValidate() {
-    _isBirthdayValidate.value = PStringUtils.isNotEmpty(_birthdayController.value.text);
+  void setIsBirthdayEditing() {
+    _isBirthdayEditing.value = PStringUtils.isNotEmpty(_birthdayController.value.text);
+  }
+
+  bool getIsBirthdayEditing() {
+    return _isBirthdayEditing.value;
+  }
+
+  void setIsBirthdayValidate(bool isValidate) {
+    _isBirthdayValidate.value = isValidate;
   }
 
   // họ
   final Rx<TextEditingController> _firstNameController = TextEditingController().obs;
   final Rx<bool> _isFirstNameFocus = false.obs;
-  final Rx<bool> _isFirstNameValidate = false.obs;
+  final Rx<bool> _isFirstNameEditing = false.obs;
+  final Rx<bool> _isFirstNameValidate = true.obs;
 
   TextEditingController getFirstNameController() {
     return _firstNameController.value;
@@ -125,6 +140,14 @@ class SendingVerificationController extends GetxController {
     return _isFirstNameFocus.value;
   }
 
+  void setIsFirstNameEditing() {
+    _isFirstNameEditing.value = PStringUtils.isNotEmpty(_firstNameController.value.text);
+  }
+
+  bool getIsFirstNameEditing() {
+    return _isFirstNameEditing.value;
+  }
+
   void setIsFirstNameValidate(bool isValidate) {
     _isFirstNameValidate.value = isValidate;
   }
@@ -132,7 +155,8 @@ class SendingVerificationController extends GetxController {
   // tên
   final Rx<TextEditingController> _lastNameController = TextEditingController().obs;
   final Rx<bool> _isLastNameFocus = false.obs;
-  final Rx<bool> _isLastNameValidate = false.obs;
+  final Rx<bool> _isLastNameEditing = false.obs;
+  final Rx<bool> _isLastNameValidate = true.obs;
 
   TextEditingController getLastNameController() {
     return _lastNameController.value;
@@ -154,6 +178,14 @@ class SendingVerificationController extends GetxController {
     return _isLastNameFocus.value;
   }
 
+  void setIsLastNameEditing() {
+    _isLastNameEditing.value = PStringUtils.isNotEmpty(_lastNameController.value.text);
+  }
+
+  bool getIsLastNameEditing() {
+    return _isLastNameEditing.value;
+  }
+
   void setIsLastNameValidate(bool isValidate) {
     _isLastNameValidate.value = isValidate;
   }
@@ -161,7 +193,8 @@ class SendingVerificationController extends GetxController {
   // số điện thoại
   final Rx<TextEditingController> _phoneController = TextEditingController().obs;
   final Rx<bool> _isPhoneFocus = false.obs;
-  final Rx<bool> _isPhoneValidate = false.obs;
+  final Rx<bool> _isPhoneEditing = false.obs;
+  final Rx<bool> _isPhoneValidate = true.obs;
 
   TextEditingController getPhoneController() {
     return _phoneController.value;
@@ -183,6 +216,14 @@ class SendingVerificationController extends GetxController {
     return _isPhoneFocus.value;
   }
 
+  void setIsPhoneEditing() {
+    _isPhoneEditing.value = PStringUtils.isNotEmpty(_phoneController.value.text);
+  }
+
+  bool getIsPhoneEditing() {
+    return _isPhoneEditing.value;
+  }
+
   void setIsPhoneValidate(bool isValidate) {
     _isPhoneValidate.value = isValidate;
   }
@@ -190,6 +231,7 @@ class SendingVerificationController extends GetxController {
   // mã xác nhận
   final Rx<TextEditingController> _verificationCodeController = TextEditingController().obs;
   final Rx<bool> _isVerificationCodeFocus = false.obs;
+  final Rx<bool> _isVerificationCodeEditing = false.obs;
   final Rx<bool> _isVerificationCodeValidate = false.obs;
 
   TextEditingController getVerificationCodeController() {
@@ -211,6 +253,14 @@ class SendingVerificationController extends GetxController {
 
   bool getIsVerificationCodeFocus() {
     return _isVerificationCodeFocus.value;
+  }
+
+  void setIsVerificationEditing() {
+    _isVerificationCodeEditing.value = PStringUtils.isNotEmpty(_verificationCodeController.value.text);
+  }
+
+  bool getIsVerificationEditing() {
+    return _isVerificationCodeEditing.value;
   }
 
   void setIsVerificationCodeValidate(bool isValidate) {
@@ -260,11 +310,11 @@ class SendingVerificationController extends GetxController {
 
   // validate dữ liệu
   bool getIsDataValidated() {
-    return PStringUtils.isNotEmpty(_birthdayController.value.text)
-        && PStringUtils.isNotEmpty(_firstNameController.value.text)
-        && PStringUtils.isNotEmpty(_lastNameController.value.text)
-        && PStringUtils.isNotEmpty(_phoneController.value.text)
-        && PStringUtils.isNotEmpty(_birthdayController.value.text);
+    return _isBirthdayValidate.value
+        && _isFirstNameValidate.value
+        && _isLastNameValidate.value
+        && _isEmailValidate.value
+        && _isPhoneValidate.value;
   }
   
   Future<void> fetchAccountById(int accountId) async {
@@ -309,7 +359,7 @@ class SendingVerificationController extends GetxController {
       _isApiPending.value = true;
       bool isSuccess = await _accountApi
           .activeAccount(_account.value.accountId!, _verificationCodeController.value.text, "Kích hoạt tài khoản thành công");
-      isSuccess ? Get.toNamed(PRoute.loginView) : ();
+      isSuccess ? Get.toNamed(PRoute.loginView, arguments: {"email": _account.value.email}) : ();
     } finally {
       _isApiPending.value = false;
     }

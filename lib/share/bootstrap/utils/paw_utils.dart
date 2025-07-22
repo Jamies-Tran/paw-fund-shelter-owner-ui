@@ -23,6 +23,10 @@ class PObjectUtils {
   static T requiredNonNullOrElse<T>(T? input1, T input2) {
     return input1 ?? input2;
   }
+
+  static T chooseWithCondition<T>(bool condition, T obj1, T obj2) {
+    return condition ? obj1 : obj2;
+  }
 }
 
 class PStringUtils {

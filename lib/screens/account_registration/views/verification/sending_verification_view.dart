@@ -122,7 +122,7 @@ class _DesktopViewState extends State<DesktopView> {
                                     iconButtonData: Icons.clear,
                                     isButton: widget.controller.getIsEmailEditing() && widget.controller.getIsToggleAccountEdit(),
                                     onPress: () => widget.controller.clearEmailText(),
-                                    color: widget.controller.getIsBirthdayFocus()
+                                    color: widget.controller.getIsEmailFocus()
                                         ? Colors.orangeAccent
                                         : Colors.black,
                                   ),
@@ -146,6 +146,7 @@ class _DesktopViewState extends State<DesktopView> {
                                     bool isValid = PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
                                         && PStringUtils.isNotEmpty(value);
                                     widget.controller.setIsEmailValidate(isValid);
+                                    widget.controller.setIsEmailEditing();
                                   },
                                 ),
 
@@ -164,7 +165,7 @@ class _DesktopViewState extends State<DesktopView> {
                                       suffixIcon: PIcon(
                                         iconData: Icons.account_circle_outlined,
                                         iconButtonData: Icons.clear,
-                                        isButton: widget.controller.getIsFirstNameFocus() && widget.controller.getIsToggleAccountEdit(),
+                                        isButton: widget.controller.getIsFirstNameEditing() && widget.controller.getIsToggleAccountEdit(),
                                         onPress: () => widget.controller.clearFirstNameText(),
                                         color: widget.controller.getIsFirstNameFocus()
                                             ? Colors.orangeAccent
@@ -187,6 +188,7 @@ class _DesktopViewState extends State<DesktopView> {
                                       onChanged: (value) {
                                         widget.controller.setIsFirstNameValidate(PStringUtils
                                             .isNotEmpty(value));
+                                        widget.controller.setIsFirstNameEditing();
                                       },
 
                                     ),
@@ -203,7 +205,7 @@ class _DesktopViewState extends State<DesktopView> {
                                       suffixIcon: PIcon(
                                         iconData: Icons.account_circle,
                                         iconButtonData: Icons.clear,
-                                        isButton: widget.controller.getIsLastNameFocus() && widget.controller.getIsToggleAccountEdit(),
+                                        isButton: widget.controller.getIsLastNameEditing() && widget.controller.getIsToggleAccountEdit(),
                                         onPress: () => widget.controller.clearLastNameText(),
                                         color: widget.controller.getIsLastNameFocus()
                                             ? Colors.orangeAccent
@@ -225,6 +227,7 @@ class _DesktopViewState extends State<DesktopView> {
                                       onChanged: (value) {
                                         widget.controller.setIsLastNameValidate(PStringUtils
                                             .isNotEmpty(value));
+                                        widget.controller.setIsLastNameEditing();
                                       },
                                     )
                                   ],
@@ -245,7 +248,7 @@ class _DesktopViewState extends State<DesktopView> {
                                   suffixIcon: PIcon(
                                     iconData: Icons.cake,
                                     iconButtonData: Icons.clear,
-                                    isButton: widget.controller.getIsBirthdayFocus() && widget.controller.getIsToggleAccountEdit(),
+                                    isButton: widget.controller.getIsBirthdayEditing() && widget.controller.getIsToggleAccountEdit(),
                                     onPress: () => widget.controller.clearBirthdayText(),
                                     color: widget.controller.getIsBirthdayFocus()
                                         ? Colors.orangeAccent
@@ -262,8 +265,10 @@ class _DesktopViewState extends State<DesktopView> {
                                     return null;
                                   },
                                   onSelectionChanged: (value) {
+                                    bool isValidate = PObjectUtils.isNotNull(value);
                                     widget.controller.setBirthdayControllerText(value.value.toString().substring(0, 10));
-                                    widget.controller.setIsBirthdayValidate();
+                                    widget.controller.setIsBirthdayValidate(isValidate);
+                                    widget.controller.setIsBirthdayEditing();
                                   },
                                   maxDate: DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day),
                                 ),
@@ -272,6 +277,7 @@ class _DesktopViewState extends State<DesktopView> {
 
                                 PTextFormField(
                                     width: MediaQuery.of(context).size.width * 0.265,
+                                    readOnly: !widget.controller.getIsToggleAccountEdit(),
                                     enable: !widget.controller.getIsApiPending(),
                                     controller: widget.controller.getPhoneController(),
                                     labelText: "Số điện thoại",
@@ -280,7 +286,7 @@ class _DesktopViewState extends State<DesktopView> {
                                     suffixIcon: PIcon (
                                       iconData: Icons.phone,
                                       iconButtonData: Icons.clear,
-                                      isButton: widget.controller.getIsPhoneFocus() && widget.controller.getIsToggleAccountEdit(),
+                                      isButton: widget.controller.getIsPhoneEditing() && widget.controller.getIsToggleAccountEdit(),
                                       onPress: () => widget.controller.clearPhoneText(),
                                       color: widget.controller.getIsPhoneFocus()
                                           ? Colors.orangeAccent
@@ -309,6 +315,7 @@ class _DesktopViewState extends State<DesktopView> {
                                       bool isValidated = PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))
                                           && PStringUtils.isNotEmpty(value);
                                       widget.controller.setIsPhoneValidate(isValidated);
+                                      widget.controller.setIsPhoneEditing();
                                     }
                                 ),
                               ],
@@ -341,29 +348,6 @@ class _DesktopViewState extends State<DesktopView> {
                                   )
                               ),
                             ),
-                            // PWidgetUtils.chooseWithCondition(
-                            //     widget.controller.getIsToggleAccountEdit(),
-                            //     PIcon(
-                            //       iconButtonData: Icons.cancel,
-                            //       isButton: true,
-                            //       color: Colors.red,
-                            //       size: 25,
-                            //       onPress: () {
-                            //         bool value = !widget.controller.getIsToggleAccountEdit();
-                            //         widget.controller.setIsToggleAccountEdit(value);
-                            //       },
-                            //     ),
-                            //     PIcon(
-                            //       iconButtonData: Icons.edit,
-                            //       isButton: true,
-                            //       color: Colors.orangeAccent,
-                            //       size: 25,
-                            //       onPress: () {
-                            //         bool value = !widget.controller.getIsToggleAccountEdit();
-                            //         widget.controller.setIsToggleAccountEdit(value);
-                            //       },
-                            //     )
-                            // ),
                           ],
                         ),
 
@@ -409,7 +393,7 @@ class _DesktopViewState extends State<DesktopView> {
                                           widget.controller.setIsVerificationCodeValidate(isValidated);
                                         }
                                     ),
-                                    PConstant.vDistance10,
+                                    PConstant.vDistance20,
                                     PWidgetUtils.chooseWithCondition(
                                         widget.controller.getIsApiPending(),
                                         PProgressBar(progressColors: [Colors.white, Colors.orangeAccent],),
@@ -430,31 +414,70 @@ class _DesktopViewState extends State<DesktopView> {
                                 PProgressBar(progressColors: [Colors.white, Colors.orangeAccent],),
                                 PWidgetUtils.chooseWithCondition(
                                   widget.controller.getIsToggleAccountEdit(),
-                                  PButton(
+                                  PHoverButton(
                                     width: MediaQuery.of(context).size.width * 0.265,
-                                    title: PText(
-                                      content: "Cập nhật",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      textColor: Color(Colors.white.toARGB32()),
+                                    height: 50,
+                                    title: Text("Cập nhật",),
+                                    backgroundColor: PObjectUtils.chooseWithCondition(
+                                        widget.controller.getIsDataValidated(),
+                                        Color(Colors.blueAccent.toARGB32()),
+                                        Color(Colors.grey.toARGB32())
                                     ),
-                                    backgroundColor: Color(Colors.blueAccent.toARGB32()),
+                                    backgroundColorHover: PObjectUtils.chooseWithCondition(
+                                        widget.controller.getIsDataValidated(),
+                                        Color(Colors.white.toARGB32()),
+                                        null
+                                    ),
+                                    textColor: PObjectUtils.chooseWithCondition(
+                                      widget.controller.getIsDataValidated(),
+                                      Color(Colors.white.toARGB32()),
+                                      Color(Colors.black.toARGB32()),
+                                    ),
+                                    textColorHover: PObjectUtils.chooseWithCondition(
+                                        widget.controller.getIsDataValidated(),
+                                        Color(Colors.blueAccent.toARGB32()),
+                                        null
+                                    ),
+                                    fontWeight: FontWeight.bold,
+                                    shape: RoundedRectangleBorder(),
+                                    shapeHover: RoundedRectangleBorder(),
+                                    textSize: 15,
+                                    textSizeHover: 17,
                                     onPress:() {
-
                                       if (widget.controller.getIsDataValidated() && formKey.currentState!.validate()) {
                                         widget.controller.updateAccount().whenComplete(() => widget.controller.fetchData(),);
                                       }
                                     },
                                   ),
-                                  PButton(
+                                  PHoverButton(
                                     width: MediaQuery.of(context).size.width * 0.265,
-                                    title: PText(
-                                      content: "Gửi mã xác nhận",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      textColor: Color(Colors.white.toARGB32()),
+                                    height: 50,
+                                    title: Text("Gửi mã xác nhận",),
+                                    backgroundColor: PObjectUtils.chooseWithCondition(
+                                        widget.controller.getIsDataValidated(),
+                                        Color(Colors.orangeAccent.toARGB32()),
+                                        Color(Colors.grey.toARGB32())
                                     ),
-                                    backgroundColor: Color(Colors.orangeAccent.toARGB32()),
+                                    backgroundColorHover: PObjectUtils.chooseWithCondition(
+                                        widget.controller.getIsDataValidated(),
+                                        Color(Colors.white.toARGB32()),
+                                        null
+                                    ),
+                                    textColor: PObjectUtils.chooseWithCondition(
+                                      widget.controller.getIsDataValidated(),
+                                      Color(Colors.white.toARGB32()),
+                                      Color(Colors.black.toARGB32()),
+                                    ),
+                                    textColorHover: PObjectUtils.chooseWithCondition(
+                                        widget.controller.getIsDataValidated(),
+                                        Color(Colors.orangeAccent.toARGB32()),
+                                        null
+                                    ),
+                                    fontWeight: FontWeight.bold,
+                                    shape: RoundedRectangleBorder(),
+                                    shapeHover: RoundedRectangleBorder(),
+                                    textSize: 15,
+                                    textSizeHover: 17,
                                     onPress:() {
                                       if (widget.controller.getIsDataValidated() && formKey.currentState!.validate()) {
                                         widget.controller.sendVerificationAccount();

@@ -17,7 +17,7 @@ class LoginApiImpl extends ILoginApi {
   late IAuthHive _authHive;
 
   LoginApiImpl() {
-    _apiUtils = Get.find();
+    _apiUtils = PApiUtils();
     _authHive = Get.find();
   }
 

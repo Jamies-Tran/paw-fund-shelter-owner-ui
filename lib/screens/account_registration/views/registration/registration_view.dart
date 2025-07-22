@@ -142,6 +142,7 @@ class _DesktopViewState extends State<DesktopView> {
                             bool isValid = PStringUtils.isMatch(value, RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
                               && PStringUtils.isNotEmpty(value);
                             widget.controller.setIsEmailValidate(isValid);
+                            widget.controller.setIsEmailEditing();
                           },
                         ),
 
@@ -180,8 +181,11 @@ class _DesktopViewState extends State<DesktopView> {
                               onTap: () => widget.controller.setIsPasswordHover(true),
                               onTapOutside: (_) => widget.controller
                                   .setIsPasswordHover(false),
-                              onChanged: (value) => widget.controller
-                                  .setIsPasswordValidate(PStringUtils.isNotEmpty(value)),
+                              onChanged: (value) {
+                                widget.controller
+                                    .setIsPasswordValidate(PStringUtils.isNotEmpty(value));
+                                widget.controller.setIsPasswordEditing();
+                              },
                             ),
 
                             PConstant.vDistance5,
@@ -194,7 +198,7 @@ class _DesktopViewState extends State<DesktopView> {
                               labelText: "Xác nhận mật khẩu",
                               hintText: "Nhập lại mật khẩu của bạn",
                               suffixIcon: PIcon(
-                                iconData:  Icons.password,
+                                iconData:  Icons.paste_sharp,
                                 iconButtonData: Icons.clear,
                                 isButton: widget.controller.getIsRePasswordEditing(),
                                 onPress: () => widget.controller.clearRePasswordText(),
@@ -223,6 +227,7 @@ class _DesktopViewState extends State<DesktopView> {
                               onChanged: (value) {
                                 widget.controller
                                     .setIsRePasswordValidate(PStringUtils.isNotEmpty(value));
+                                widget.controller.setIsRePasswordEditing();
                               },
 
                             ),
@@ -262,6 +267,7 @@ class _DesktopViewState extends State<DesktopView> {
                           onSelectionChanged: (value) {
                             widget.controller.setBirthdayControllerText(value.value.toString().substring(0, 10));
                             widget.controller.setIsBirthdayValidate();
+                            widget.controller.setIsBirthdayEditing();
                           },
                           maxDate: DateTime(DateTime.now().year - 18, DateTime.now().month, DateTime.now().day),
                         ),
@@ -303,6 +309,7 @@ class _DesktopViewState extends State<DesktopView> {
                               onChanged: (value) {
                                 widget.controller.setIsFirstNameValidate(PStringUtils
                                     .isNotEmpty(value));
+                                widget.controller.setIsFirstNameEditing();
                               },
 
                             ),
@@ -340,6 +347,7 @@ class _DesktopViewState extends State<DesktopView> {
                               onChanged: (value) {
                                 widget.controller.setIsLastNameValidate(PStringUtils
                                     .isNotEmpty(value));
+                                widget.controller.setIsLastNameEditing();
                               },
                             )
                           ],
@@ -385,6 +393,7 @@ class _DesktopViewState extends State<DesktopView> {
                               bool isValidated = PStringUtils.isMatch(value, RegExp(r'^(?:\+84|0)(3[2-9]|5[2689]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$'))
                                   && PStringUtils.isNotEmpty(value);
                               widget.controller.setIsPhoneValidate(isValidated);
+                              widget.controller.setIsPhoneEditing();
                             }
                         ),
 
@@ -416,24 +425,41 @@ class _DesktopViewState extends State<DesktopView> {
                         PWidgetUtils.chooseWithCondition(
                           widget.controller.getIsPending(),
                           PProgressBar(progressColors: [Colors.white, Colors.orangeAccent],),
-                          PButton(
-                            width: MediaQuery.of(context).size.width * 0.245,
-                            title: PText(
-                              content: "Đăng ký",
-                              fontSize: 15,
+                          PHoverButton(
+                              width: MediaQuery.of(context).size.width * 0.245,
+                              height: 50,
+                              title: Text("Đăng ký",),
+                              backgroundColor: PObjectUtils.chooseWithCondition(
+                                  widget.controller.getIsDataValidated(),
+                                  Color(Colors.green.toARGB32()),
+                                  Color(Colors.grey.toARGB32())
+                              ),
+                              backgroundColorHover: PObjectUtils.chooseWithCondition(
+                                  widget.controller.getIsDataValidated(),
+                                  Color(Colors.white.toARGB32()),
+                                  null
+                              ),
+                              textColor: PObjectUtils.chooseWithCondition(
+                                widget.controller.getIsDataValidated(),
+                                Color(Colors.white.toARGB32()),
+                                Color(Colors.black.toARGB32()),
+                              ),
+                              textColorHover: PObjectUtils.chooseWithCondition(
+                                  widget.controller.getIsDataValidated(),
+                                  Color(Colors.green.toARGB32()),
+                                  null
+                              ),
                               fontWeight: FontWeight.bold,
-                              textColor: Color(Colors.white.toARGB32()),
+                              shape: RoundedRectangleBorder(),
+                              shapeHover: RoundedRectangleBorder(),
+                              textSize: 15,
+                              textSizeHover: 17,
+                              onPress:() {
+                                if (widget.controller.getIsDataValidated() && formKey.currentState!.validate()) {
+                                  widget.controller.register();
+                                }
+                              },
                             ),
-                            backgroundColor: widget.controller.getIsDataValidated()
-                                ? Color(Colors.green.toARGB32())
-                                : Color(Colors.grey.toARGB32()),
-                            onPress:() {
-                              if (widget.controller.getIsDataValidated() && formKey.currentState!.validate()) {
-                                widget.controller.register();
-                              }
-
-                            },
-                          )
                         ),
 
                       ],

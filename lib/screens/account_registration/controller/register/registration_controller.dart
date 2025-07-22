@@ -35,6 +35,7 @@ class RegistrationController extends GetxController {
   // họ
   final Rx<TextEditingController> _firstNameController = TextEditingController().obs;
   final Rx<bool> _isFirstNameHover = false.obs;
+  final Rx<bool> _isFirstNameEditing = false.obs;
   final Rx<bool> _isFirstNameValidate = false.obs;
 
   TextEditingController getFirstNameController() {
@@ -59,8 +60,12 @@ class RegistrationController extends GetxController {
     return _isFirstNameHover.value;
   }
 
+  void setIsFirstNameEditing() {
+    _isFirstNameEditing.value = PStringUtils.isNotEmpty(_firstNameController.value.text);
+  }
+
   bool getIsFirstNameEditing() {
-    return PStringUtils.isNotEmpty(_firstNameController.value.text);
+    return _isFirstNameEditing.value;
   }
 
   bool getIsFirstNameValidate() {
@@ -74,6 +79,7 @@ class RegistrationController extends GetxController {
   // tên
   final Rx<TextEditingController> _lastNameController = TextEditingController().obs;
   final Rx<bool> _isLastNameHover = false.obs;
+  final Rx<bool> _isLastNameEditing = false.obs;
   final Rx<bool> _isLastNameValidate = false.obs;
 
   TextEditingController getLastNameController() {
@@ -98,8 +104,12 @@ class RegistrationController extends GetxController {
     return _isLastNameHover.value;
   }
 
+  void setIsLastNameEditing() {
+    _isLastNameEditing.value = PStringUtils.isNotEmpty(_lastNameController.value.text);
+  }
+
   bool getIsLastNameEditing() {
-    return PStringUtils.isNotEmpty(_lastNameController.value.text);
+    return _isLastNameEditing.value;
   }
 
   bool getIsLastNameValidate() {
@@ -113,6 +123,7 @@ class RegistrationController extends GetxController {
   // ngày sinh
   final Rx<TextEditingController> _birthdayController = TextEditingController().obs;
   final Rx<bool> _isBirthdayHover = false.obs;
+  final Rx<bool> _isBirthdayEditing = false.obs;
   final Rx<bool> _isBirthdayValidate = false.obs;
 
   TextEditingController getBirthdayController() {
@@ -141,8 +152,12 @@ class RegistrationController extends GetxController {
     return _isBirthdayHover.value;
   }
 
+  void setIsBirthdayEditing() {
+    _isBirthdayEditing.value = PStringUtils.isNotEmpty(_birthdayController.value.text);
+  }
+
   bool getIsBirthdayEditing() {
-    return PStringUtils.isNotEmpty(_birthdayController.value.text);
+    return _isBirthdayEditing.value;
   }
 
   bool getIsBirthdayValidate() {
@@ -156,6 +171,7 @@ class RegistrationController extends GetxController {
   // email
   final Rx<TextEditingController> _emailController = TextEditingController().obs;
   final Rx<bool> _isEmailHover = false.obs;
+  final Rx<bool> _isEmailEditing = false.obs;
   final Rx<bool> _isEmailValidate = false.obs;
 
   TextEditingController getEmailController() {
@@ -180,8 +196,12 @@ class RegistrationController extends GetxController {
     return _isEmailHover.value;
   }
 
+  void setIsEmailEditing() {
+    _isEmailEditing.value = PStringUtils.isNotEmpty(_emailController.value.text);
+  }
+
   bool getIsEmailEditing() {
-    return PStringUtils.isNotEmpty(_emailController.value.text);
+    return _isEmailEditing.value;
   }
 
   bool getIsEmailValidate() {
@@ -196,6 +216,7 @@ class RegistrationController extends GetxController {
   // số điện thoại
   final Rx<TextEditingController> _phoneController = TextEditingController().obs;
   final Rx<bool> _isPhoneHover = false.obs;
+  final Rx<bool> _isPhoneEditing = false.obs;
   final Rx<bool> _isPhoneValidate = false.obs;
 
   TextEditingController getPhoneController() {
@@ -220,8 +241,12 @@ class RegistrationController extends GetxController {
     return _isPhoneHover.value;
   }
 
+  void setIsPhoneEditing() {
+    _isPhoneEditing.value = PStringUtils.isNotEmpty(_phoneController.value.text);
+  }
+
   bool getIsPhoneEditing() {
-    return PStringUtils.isNotEmpty(_phoneController.value.text);
+    return _isPhoneEditing.value;
   }
 
   bool getIsPhoneValidate() {
@@ -235,6 +260,7 @@ class RegistrationController extends GetxController {
   // mật khẩu
   final Rx<TextEditingController> _passwordController = TextEditingController().obs;
   final Rx<bool> _isPasswordHover = false.obs;
+  final Rx<bool> _isPasswordEditing = false.obs;
   final Rx<bool> _isPasswordValidate = false.obs;
 
   TextEditingController getPasswordController() {
@@ -251,16 +277,20 @@ class RegistrationController extends GetxController {
     _isLastNameHover.value = false;
     _isEmailHover.value = false;
     _isPhoneHover.value = false;
-    _isPasswordHover.value = false;
-    _isRePasswordHover.value = isPasswordHover;
+    _isRePasswordHover.value = false;
+    _isPasswordHover.value = isPasswordHover;
   }
 
   bool getIsPasswordHover() {
     return _isPasswordHover.value;
   }
 
+  void setIsPasswordEditing() {
+    _isPasswordEditing.value = PStringUtils.isNotEmpty(_passwordController.value.text);
+  }
+
   bool getIsPasswordEditing() {
-    return PStringUtils.isNotEmpty(_passwordController.value.text);
+    return _isPasswordEditing.value;
   }
 
   bool getIsPasswordValidate() {
@@ -275,6 +305,7 @@ class RegistrationController extends GetxController {
   // xác nhận mật khẩu
   final Rx<TextEditingController> _rePasswordController = TextEditingController().obs;
   final Rx<bool> _isRePasswordHover = false.obs;
+  final Rx<bool> _isRePasswordEditing = false.obs;
   final Rx<bool> _isRePasswordValidate = false.obs;
 
   TextEditingController getRePasswordController() {
@@ -291,8 +322,8 @@ class RegistrationController extends GetxController {
     _isLastNameHover.value = false;
     _isEmailHover.value = false;
     _isPhoneHover.value = false;
-    _isRePasswordHover.value = false;
-    _isPasswordHover.value = isRePasswordHover;
+    _isPasswordHover.value = false;
+    _isRePasswordHover.value = isRePasswordHover;
 
   }
 
@@ -301,7 +332,11 @@ class RegistrationController extends GetxController {
   }
 
   bool getIsRePasswordEditing() {
-    return PStringUtils.isNotEmpty(_rePasswordController.value.text);
+    return _isRePasswordEditing.value;
+  }
+
+  void setIsRePasswordEditing() {
+    _isRePasswordEditing.value = PStringUtils.isNotEmpty(_rePasswordController.value.text);
   }
 
   bool getIsRePasswordValidate() {

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:paw_fund_shelter_owner/repository/api/account/account_api.dart';
+import 'package:paw_fund_shelter_owner/repository/api/login/login_api.dart';
 import 'package:paw_fund_shelter_owner/repository/api/register/registration_api.dart';
 import 'package:paw_fund_shelter_owner/repository/api/verification/verification_api.dart';
 import 'package:paw_fund_shelter_owner/repository/firebase/media/media_firebase.dart';
@@ -17,6 +18,7 @@ class PDataBinding extends Bindings {
     Get.lazyPut<IVerificationApi>(() => VerificationApiImpl(),);
     Get.lazyPut<IMediaFirebase>(() => MediaFirebaseImpl(),);
     Get.lazyPut<IAuthHive>(() => AuthHiveImpl(),);
+    Get.lazyPut<ILoginApi>(() => LoginApiImpl(),);
   }
 
 }

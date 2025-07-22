@@ -1,5 +1,6 @@
 
 
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,6 @@ import 'package:paw_fund_shelter_owner/repository/hive/models/auth_hive_model.da
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/route/paw_routes.dart';
 import 'package:paw_fund_shelter_owner/share/data_binding/data_binding.dart';
 import 'package:paw_fund_shelter_owner/share/bootstrap/configuration/env_interop.dart';
-
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
@@ -41,6 +41,7 @@ class PawFundApp extends StatelessWidget {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      title: "Paw Fund - Trung tâm cứu trợ",
       initialBinding: PDataBinding(),
       getPages: PAppRoute.pages,
     );
